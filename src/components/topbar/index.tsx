@@ -1,20 +1,21 @@
 import styled from 'styled-components';
-import SearchIcon from '@material-ui/icons/Search';
+import SearchBar from './searchBar';
 import TopBarLink from './topBarLink';
+import TopBarIcon from './topBarIcons';
+import TopBarLogo from './topBarLogo';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import ChatIcon from '@material-ui/icons/Chat';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
 export default function TopBar() {
   return (
     <>
       <Container>
         <TopBarLeft>
-          <Logo>Doggy</Logo>
-          <SearchBar>
-            <StyledSearchIcon />
-            <StyledInput />
-          </SearchBar>
+          <TopBarLogo />
+          <SearchBar />
         </TopBarLeft>
 
         <TopBarCenter>
@@ -29,7 +30,17 @@ export default function TopBar() {
           </TopBarLink>
         </TopBarCenter>
 
-        <NoticeContainer />
+        <TopBarRight>
+          <TopBarIcon notice={1}>
+            <PeopleAltIcon />
+          </TopBarIcon>
+          <TopBarIcon notice={10}>
+            <ChatIcon />
+          </TopBarIcon>
+          <TopBarIcon notice={2}>
+            <NotificationsIcon />
+          </TopBarIcon>
+        </TopBarRight>
 
         <ProfileContainer />
       </Container>
@@ -51,46 +62,17 @@ const TopBarLeft = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.span`
-  color: white;
-  font-size: 20px;
-  margin: 0 20px;
-`;
-
-const SearchBar = styled.div`
-  display: flex;
-  background-color: white;
-  border-radius: 30px;
-  width: 280px;
-  overflow: hidden;
-`;
-
-const StyledInput = styled.input.attrs({
-  type: 'text',
-  placeholder: 'search...',
-})`
-  border: none;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const StyledSearchIcon = styled(SearchIcon).attrs({
-  style: { fontSize: 25 },
-})`
-  color: grey;
-  font-size: 600;
-  margin-left: 10px;
-`;
-
 const TopBarCenter = styled.div`
   flex: 4;
   display: flex;
   align-items: center;
 `;
 
-const NoticeContainer = styled.div`
+const TopBarRight = styled.div`
   flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
 
 const ProfileContainer = styled.div`
