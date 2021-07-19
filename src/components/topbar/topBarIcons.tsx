@@ -1,17 +1,32 @@
-import { ReactNode } from 'react';
 import styled from 'styled-components';
+import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
+import ChatIcon from '@material-ui/icons/Chat';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
 type Props = {
-  notice: number;
-  children: ReactNode;
+  friendReq?: number;
+  messages?: number;
+  notices?: number;
 };
 
-export default function TopBarIcon({ children, notice }: Props) {
+export default function TopBarIcon({
+  friendReq = 1,
+  messages = 10,
+  notices = 2,
+}: Props) {
   return (
     <>
       <IconContainer>
-        {children}
-        <IconBadge>{notice}</IconBadge>
+        <PermIdentityOutlinedIcon />
+        <IconBadge>{friendReq}</IconBadge>
+      </IconContainer>
+      <IconContainer>
+        <ChatIcon />
+        <IconBadge>{messages}</IconBadge>
+      </IconContainer>
+      <IconContainer>
+        <NotificationsIcon />
+        <IconBadge>{notices}</IconBadge>
       </IconContainer>
     </>
   );

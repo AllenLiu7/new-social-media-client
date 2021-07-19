@@ -1,14 +1,20 @@
-import { ReactNode } from 'react';
 import styled from 'styled-components';
+import HomeIcon from '@material-ui/icons/Home';
+import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 
-type Props = {
-  children: ReactNode;
-};
-
-export default function TopBarLink({ children }: Props) {
+export default function TopBarLink() {
   return (
     <>
-      <LinkContainer>{children}</LinkContainer>
+      <LinkContainer>
+        <HomeIcon />
+      </LinkContainer>
+      <LinkContainer>
+        <PeopleAltOutlinedIcon />
+      </LinkContainer>
+      <LinkContainer>
+        <VideoLibraryIcon />
+      </LinkContainer>
     </>
   );
 }

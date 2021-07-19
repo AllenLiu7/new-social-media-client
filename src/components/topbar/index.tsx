@@ -3,11 +3,6 @@ import SearchBar from './searchBar';
 import TopBarLink from './topBarLink';
 import TopBarIcon from './topBarIcons';
 import TopBarLogo from './topBarLogo';
-import HomeIcon from '@material-ui/icons/Home';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import ChatIcon from '@material-ui/icons/Chat';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 
 export default function TopBar() {
   return (
@@ -19,27 +14,11 @@ export default function TopBar() {
         </TopBarLeft>
 
         <TopBarCenter>
-          <TopBarLink>
-            <HomeIcon />
-          </TopBarLink>
-          <TopBarLink>
-            <PeopleAltIcon />
-          </TopBarLink>
-          <TopBarLink>
-            <VideoLibraryIcon />
-          </TopBarLink>
+          <TopBarLink />
         </TopBarCenter>
 
         <TopBarRight>
-          <TopBarIcon notice={1}>
-            <PeopleAltIcon />
-          </TopBarIcon>
-          <TopBarIcon notice={10}>
-            <ChatIcon />
-          </TopBarIcon>
-          <TopBarIcon notice={2}>
-            <NotificationsIcon />
-          </TopBarIcon>
+          <TopBarIcon />
         </TopBarRight>
 
         <ProfileContainer />
