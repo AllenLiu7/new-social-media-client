@@ -25,6 +25,7 @@ const Input = styled.input.attrs({
   placeholder: 'search...',
 })`
   border: none;
+  width: 100%;
   &:focus {
     outline: none;
   }

@@ -3,6 +3,7 @@ import SearchBar from './searchBar';
 import TopBarLink from './topBarLink';
 import TopBarIcon from './topBarIcons';
 import TopBarLogo from './topBarLogo';
+import ProfilePic from './profilePic';
 
 export default function TopBar() {
   return (
@@ -19,9 +20,8 @@ export default function TopBar() {
 
         <TopBarRight>
           <TopBarIcon />
+          <ProfilePic />
         </TopBarRight>
-
-        <ProfileContainer />
       </Container>
     </>
   );
@@ -32,6 +32,7 @@ const Container = styled.div`
   width: 100%;
   height: 45px;
   background-color: lightgreen;
+  position: sticky;
 `;
 
 const TopBarLeft = styled.div`
@@ -48,12 +49,9 @@ const TopBarCenter = styled.div`
 `;
 
 const TopBarRight = styled.div`
-  flex: 2;
+  flex: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-`;
-
-const ProfileContainer = styled.div`
-  flex: 1;
+  margin-right: 30px;
 `;
