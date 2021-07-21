@@ -16,21 +16,28 @@ export default function TopBarIcon({
 }: Props) {
   return (
     <>
-      <IconContainer>
-        <PermIdentityOutlinedIcon />
-        <IconBadge>{friendReq}</IconBadge>
-      </IconContainer>
-      <IconContainer>
-        <ChatIcon />
-        <IconBadge>{messages}</IconBadge>
-      </IconContainer>
-      <IconContainer>
-        <NotificationsIcon />
-        <IconBadge>{notices}</IconBadge>
-      </IconContainer>
+      <Container>
+        <IconContainer>
+          <PermIdentityOutlinedIcon />
+          <IconBadge>{friendReq}</IconBadge>
+        </IconContainer>
+        <IconContainer>
+          <ChatIcon />
+          <IconBadge>{messages}</IconBadge>
+        </IconContainer>
+        <IconContainer>
+          <NotificationsIcon />
+          <IconBadge>{notices}</IconBadge>
+        </IconContainer>
+      </Container>
     </>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  margin: 0 30px;
+`;
 
 const IconContainer = styled.div`
   position: relative;

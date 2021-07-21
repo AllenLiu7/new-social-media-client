@@ -3,7 +3,7 @@ import SearchBar from './searchBar';
 import TopBarLink from './topBarLink';
 import TopBarIcon from './topBarIcons';
 import TopBarLogo from './topBarLogo';
-import ProfilePic from './profilePic';
+import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
 
 export default function TopBar() {
   return (
@@ -20,7 +20,7 @@ export default function TopBar() {
 
         <TopBarRight>
           <TopBarIcon />
-          <ProfilePic />
+          <StyledProfilePic />
         </TopBarRight>
       </Container>
     </>
@@ -32,7 +32,7 @@ const Container = styled.div`
   width: 100%;
   height: 45px;
   background-color: lightgreen;
-  position: sticky;
+  position: fixed;
 `;
 
 const TopBarLeft = styled.div`

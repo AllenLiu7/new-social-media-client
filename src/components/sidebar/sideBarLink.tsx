@@ -23,11 +23,12 @@ type LinkWrapperProps = {
 };
 
 const LinkWrapper = styled.div<LinkWrapperProps>`
-  margin: 20px 20px;
+  margin: 20px 0px;
   display: flex;
   align-items: center;
   cursor: pointer;
   display: ${(props) => (props.show ? 'none' : 'block')};
+  transition: all 2s;
 `;
 
 const LinkName = styled.span`
