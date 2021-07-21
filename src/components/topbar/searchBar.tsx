@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
+import { Input } from '../common/styled-components/input';
 
 export default function SearchBar() {
   return (
@@ -18,17 +19,6 @@ const Container = styled.div`
   border-radius: 30px;
   width: 280px;
   overflow: hidden;
-`;
-
-const Input = styled.input.attrs({
-  type: 'text',
-  placeholder: 'search...',
-})`
-  border: none;
-  width: 100%;
-  &:focus {
-    outline: none;
-  }
 `;
 
 const Icon = styled(SearchIcon).attrs({

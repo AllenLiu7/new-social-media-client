@@ -3,6 +3,7 @@ import { useState } from 'react';
 import SideBarLinkList from './sideBarLinkList';
 import SideBarFriendList from './sideBarFriendList';
 import { StyledButton } from '../common/styled-components/styledButton';
+import { StyledHr } from '../common/styled-components/hr';
 
 export default function SideBar() {
   const [show, setShow] = useState(true);
@@ -29,6 +30,7 @@ const SideBarContainer = styled.div`
   height: 100vh;
   padding-left: 30px;
   overflow-y: scroll;
+  top: 45px;
 
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -50,13 +52,4 @@ const SideBarContainer = styled.div`
 
 const ButtonWrapper = styled.div`
   margin: 30px 0;
-`;
-
-const StyledHr = styled.hr`
-  display: block;
-  width: 90%;
-  height: 1px;
-  border: 0;
-  border-top: 3px solid #ccc;
-  margin: 20px 0px;
 `;

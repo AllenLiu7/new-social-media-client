@@ -21,6 +21,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const NameWrapper = styled.span`

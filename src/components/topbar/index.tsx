@@ -30,9 +30,9 @@ export default function TopBar() {
 const Container = styled.div`
   display: flex;
   width: 100%;
-  height: 45px;
-  background-color: lightgreen;
-  position: fixed;
+  height: 55px;
+  background-color: lightblue;
+  position: sticky;
 `;
 
 const TopBarLeft = styled.div`
