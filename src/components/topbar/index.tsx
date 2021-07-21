@@ -32,7 +32,10 @@ const Container = styled.div`
   width: 100%;
   height: 55px;
   background-color: lightblue;
+  position: -webkit-sticky;
   position: sticky;
+  top: 0;
+  z-index: 999;
 `;
 
 const TopBarLeft = styled.div`

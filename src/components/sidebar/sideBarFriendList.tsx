@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SideBarFriend from './sideBarFriend';
+import ProfileHead from '../common/profileHead';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -21,7 +21,7 @@ export default function SideBarFriendList() {
   return (
     <>
       {users.map((user, index) => (
-        <SideBarFriend
+        <ProfileHead
           name={user.name.first}
           src={user.picture.medium}
           key={index}

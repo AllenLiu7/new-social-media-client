@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import ShareCard from './shareCard';
+import PostCard from './postCard';
 
 export default function Feed() {
   return (
     <>
       <FeedContainer>
         <ShareCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
       </FeedContainer>
     </>
   );
@@ -13,7 +17,8 @@ export default function Feed() {
 
 const FeedContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   flex: 8;
-  height: 100vh;
+  height: auto;
 `;

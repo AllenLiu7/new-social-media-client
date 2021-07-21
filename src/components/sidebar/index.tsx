@@ -18,7 +18,7 @@ export default function SideBar() {
         <ButtonWrapper onClick={() => handdleShowMore()}>
           <StyledButton color='black'>Show more</StyledButton>
         </ButtonWrapper>
-        <StyledHr />
+        <StyledHr width='90%' />
         <SideBarFriendList />
       </SideBarContainer>
     </>
@@ -27,10 +27,11 @@ export default function SideBar() {
 
 const SideBarContainer = styled.div`
   flex: 3;
-  height: 100vh;
+  height: calc(100vh - 55px);
   padding-left: 30px;
   overflow-y: scroll;
-  top: 45px;
+  position: sticky;
+  top: 55px; /* required */
 
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

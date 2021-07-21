@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
+import { StyledProfilePic } from './styled-components/styledProfilePic';
 
 interface Props {
   name: string;
   src: string;
 }
 
-export default function SideBarFriend({ name, src }: Props) {
+export default function ProfileHead({ name, src }: Props) {
   return (
     <>
       <ProfileWrapper>

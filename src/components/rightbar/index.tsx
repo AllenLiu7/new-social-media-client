@@ -10,6 +10,4 @@ export default function RightBar() {
 
 const RightBarContainer = styled.div`
   flex: 4;
-  height: 100vh;
-  background-color: lightcoral;
 `;
