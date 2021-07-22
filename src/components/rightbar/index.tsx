@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import BirthdayCard from './birthdayCard';
+import SponsorsCard from './sponsersCard';
 
 export default function RightBar() {
   return (
     <>
       <RightBarContainer>
         <BirthdayCard />
+        <SponsorsCard />
       </RightBarContainer>
     </>
   );
@@ -14,7 +16,8 @@ export default function RightBar() {
 const RightBarContainer = styled.div`
   flex: 4;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
   height: calc(100vh - 55px);
   overflow-y: scroll;
   position: sticky;

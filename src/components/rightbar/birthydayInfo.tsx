@@ -16,6 +16,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 const GiftImage = styled.img.attrs({

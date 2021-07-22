@@ -7,8 +7,8 @@ type Props = {
 export const StyledHr = styled.hr<Props>`
   display: block;
   width: ${(p) => p.width || '100%'};
-  height: 1px;
+  height: 0.8px;
   border: 0;
   border-top: 3px solid #ccc;
-  margin: 20px 0px;
+  margin: 30px 0px;
 `;
