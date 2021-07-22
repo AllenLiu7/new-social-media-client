@@ -6,7 +6,7 @@ interface Props {
   src: string;
 }
 
-export default function ProfileHead({ name, src }: Props) {
+export default function ProfilePicName({ name, src }: Props) {
   return (
     <>
       <ProfileWrapper>

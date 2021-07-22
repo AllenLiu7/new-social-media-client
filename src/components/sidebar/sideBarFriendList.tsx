@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ProfileHead from '../common/profileHead';
+import ProfileHead from '../common/profilePicName';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
