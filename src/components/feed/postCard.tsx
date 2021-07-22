@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import ProfileHead from '../common/profileHead';
+import PostCardLike from './postCardLike';
+import PostCardComment from './postCardComment';
 
 export default function PostCard({ src, name, desc }) {
   const img = true;
@@ -7,13 +9,21 @@ export default function PostCard({ src, name, desc }) {
   return (
     <>
       <Container>
-        <ProfileHead
-          src={src || '../../public/assets/profile-pictures/72.jpg'}
-          name={name || 'Allen'}
-        />
+        <ProfileWrap>
+          <ProfileHead
+            src={src || '../../public/assets/profile-pictures/72.jpg'}
+            name={name || 'Allen'}
+          />
+        </ProfileWrap>
+
         <PostContent>
-          <DescWrap>{desc || <p>This is my first post</p>}</DescWrap>
+          <DescWrap>{desc || <div>This is my first post</div>}</DescWrap>
           {img ? <StyledImg /> : null}
+
+          <PostBottomWrap>
+            <PostCardLike />
+            <PostCardComment />
+          </PostBottomWrap>
         </PostContent>
       </Container>
     </>
@@ -24,7 +34,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px 30px;
+  //padding: 20px 30px;
   margin: 10px 30px;
   width: 85%;
   height: auto;
@@ -42,7 +52,20 @@ const PostContent = styled.div`
   //width: 100%;
 `;
 
-const DescWrap = styled.div``;
+const PostBottomWrap = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const ProfileWrap = styled.div`
+  margin: 20px 20px 0px 20px;
+`;
+
+const DescWrap = styled.div`
+  margin: 0px 20px 20px 20px;
+`;
 
 const StyledImg = styled.img.attrs({
   src: '../../public/assets/post/sample2.jpg',
@@ -50,6 +73,7 @@ const StyledImg = styled.img.attrs({
 })`
   width: 100%;
   align-self: center;
-  max-height: 500px;
+  max-height: 800px;
   object-fit: contain;
+  margin-bottom: 20px;
 `;
