@@ -21,12 +21,18 @@ export default function SideBarFriendList() {
   return (
     <>
       {users.map((user, index) => (
-        <ProfileHead
-          name={user.name.first}
-          src={user.picture.medium}
-          key={index}
-        />
+        <ProfileHeadWrap key={index}>
+          <ProfileHead
+            name={user.name.first}
+            src={user.picture.medium}
+            key={index}
+          />
+        </ProfileHeadWrap>
       ))}
     </>
   );
 }
+
+const ProfileHeadWrap = styled.div`
+  margin-bottom: 20px;
+`;

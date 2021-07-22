@@ -12,8 +12,9 @@ export default function PostCard({ src, name, desc }) {
         <ProfileWrap>
           <ProfileHead
             src={src || '../../public/assets/profile-pictures/72.jpg'}
-            name={name || 'Allen'}
+            name={name || 'Allen Liu'}
           />
+          <TimeStamp>1 week ago</TimeStamp>
         </ProfileWrap>
 
         <PostContent>
@@ -60,7 +61,14 @@ const PostBottomWrap = styled.div`
 `;
 
 const ProfileWrap = styled.div`
-  margin: 20px 20px 0px 20px;
+  display: flex;
+  align-items: center;
+  margin: 20px 20px 20px 20px;
+`;
+
+const TimeStamp = styled.div`
+  margin-left: 8px;
+  font-size: 12px;
 `;
 
 const DescWrap = styled.div`

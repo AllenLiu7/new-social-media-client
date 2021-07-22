@@ -20,7 +20,7 @@ export default function ProfileHead({ name, src }: Props) {
 const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+
   cursor: pointer;
 `;
 
