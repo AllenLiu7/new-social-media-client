@@ -8,7 +8,7 @@ export default function SponsorCard() {
       <Title>Sponsored</Title>
       <SponsorItem />
       <SponsorItem />
-      <StyledHr />
+      {/* <StyledHr /> */}
     </Container>
   );
 }

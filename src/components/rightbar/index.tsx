@@ -14,6 +14,7 @@ export default function RightBar({ profile }: Props) {
       <RightBarContainer>
         <UserBioCard />
         <RightBarFriendListCard />
+        <SponsorsCard />
       </RightBarContainer>
     );
   };
@@ -40,6 +41,7 @@ const RightBarContainer = styled.div`
   overflow-y: scroll;
   position: sticky;
   top: 55px; /* required */
+  z-z-index: 998;
 
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

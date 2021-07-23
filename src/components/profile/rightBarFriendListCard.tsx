@@ -23,6 +23,7 @@ export default function RightBarFriendListCard() {
 
 const CustomCard = styled(Card)`
   padding: 20px;
+  margin-bottom: 30px;
 `;
 
 const Title = styled.div`
