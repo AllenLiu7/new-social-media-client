@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ProfileHead from '../common/profileHead';
+import ProfileHead from '../common/profilePicName';
 import PostCardLike from './postCardLike';
 import PostCardComment from './postCardComment';
 
