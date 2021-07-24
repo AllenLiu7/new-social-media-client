@@ -1,16 +1,18 @@
 import { hot } from 'react-hot-loader/root';
 import GlobalStyle from './theme/globalStyles';
-import Home from './page/home';
-import Profile from './page/profile';
-import Login from './page/login';
+import { Switch } from 'react-router-dom';
+import routes from './route';
+import RouteWithSubRoutes from './utils/routeWithSubRoutes';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      {/* <Home /> */}
-      {/* <Profile /> */}
-      <Login />
+      <Switch>
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes key={i} {...route} />
+        ))}
+      </Switch>
     </>
   );
 }

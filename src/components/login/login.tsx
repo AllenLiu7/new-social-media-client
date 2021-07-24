@@ -23,7 +23,13 @@ export default function Login() {
 
   const useStyles = makeStyles({
     root: {
-      height: 350,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+    },
+    form: {
+      height: 'auto',
       width: 320,
       display: 'flex',
       flexDirection: 'column',
@@ -38,12 +44,12 @@ export default function Login() {
   const classes = useStyles();
 
   return (
-    <Box display='flex' justifyContent='center' alignItems='center' mt={20}>
+    <Box className={classes.root}>
       <Box>
         <Typography
           className={classes.title}
           variant='h2'
-          align='center'
+          align='left'
           color='primary'
           gutterBottom
         >
@@ -53,7 +59,7 @@ export default function Login() {
           Welcome to our community. Let us have fun!
         </Typography>
       </Box>
-      <Box border={1} ml={10} className={classes.root}>
+      <Box border={1} ml={20} className={classes.form}>
         <form noValidate autoComplete='off'>
           <FormControl
             variant='outlined'

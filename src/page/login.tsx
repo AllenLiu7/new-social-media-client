@@ -1,14 +1,13 @@
 import styled from 'styled-components';
-import LoginSignUpForm from '../components/login/login';
+import Login from '../components/login/login';
+import SignUp from '../components/login/signUp';
 
 import React from 'react';
 
-export default function Login() {
+export default function LoginPage({ register = true }) {
   return (
     <div>
-      <FormWrap>
-        <LoginSignUpForm />
-      </FormWrap>
+      <FormWrap>{register ? <SignUp /> : <Login />}</FormWrap>
     </div>
   );
 }

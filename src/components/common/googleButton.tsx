@@ -37,7 +37,7 @@ const IconWrapper = styled.div`
   margin-top: 1px;
   margin-left: 1px;
   width: 40px;
-  height: 40px;
+  height: 36px;
   border-radius: 2px;
   background-color: white;
 `;
