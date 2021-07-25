@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import SearchBar from './searchBar';
 import TopBarLink from './topBarLink';
 import TopBarIcon from './topBarIcons';
@@ -20,7 +21,9 @@ export default function TopBar() {
 
         <TopBarRight>
           <TopBarIcon />
-          <StyledProfilePic />
+          <Link to='/profile'>
+            <StyledProfilePic />
+          </Link>
         </TopBarRight>
       </Container>
     </>
@@ -46,15 +49,15 @@ const TopBarLeft = styled.div`
 `;
 
 const TopBarCenter = styled.div`
-  flex: 4;
+  flex: 5;
   display: flex;
   align-items: center;
 `;
 
 const TopBarRight = styled.div`
-  flex: 3;
+  flex: 2;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 30px;
+  padding-right: 60px;
 `;

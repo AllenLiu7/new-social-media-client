@@ -41,14 +41,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/public/index.html'), //point to the template for react
     }),
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(), //A webpack plugin to remove/clean your build folder(s).
   ],
   devServer: {
     contentBase: path.join(__dirname, './src'),
     port: 3000,
-    hotOnly: true,
+    // hot: false,
     compress: true,
     open: true,
-    historyApiFallback: true,
+    // historyApiFallback: true,
   },
 };

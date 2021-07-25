@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
@@ -6,20 +8,20 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 export default function TopBarLink() {
   return (
     <>
-      <LinkContainer>
+      <StyledLink to='/'>
         <HomeIcon />
-      </LinkContainer>
-      <LinkContainer>
+      </StyledLink>
+      <StyledLink to='/profile'>
         <PeopleAltOutlinedIcon />
-      </LinkContainer>
-      <LinkContainer>
+      </StyledLink>
+      <StyledLink to='/login'>
         <VideoLibraryIcon />
-      </LinkContainer>
+      </StyledLink>
     </>
   );
 }
 
-const LinkContainer = styled.div`
+const StyledLink = styled(Link)`
   display: flex;
   height: 100%;
   flex: 1 1 180px;
