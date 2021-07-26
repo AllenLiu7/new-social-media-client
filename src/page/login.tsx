@@ -1,15 +1,10 @@
-import styled from 'styled-components';
 import Login from '../components/login/login';
 import SignUp from '../components/login/signUp';
 
-import React from 'react';
-
-export default function LoginPage({ register = true }) {
-  return (
-    <div>
-      <FormWrap>{register ? <SignUp /> : <Login />}</FormWrap>
-    </div>
-  );
+interface Props {
+  register: boolean;
 }
 
-const FormWrap = styled.div``;
+export default function LoginPage({ register = true }: Props) {
+  return <>{register ? <SignUp /> : <Login />}</>;
+}

@@ -3,40 +3,41 @@ import { createSlice } from '@reduxjs/toolkit';
 export const initialState = {
   loading: false,
   hasErrors: false,
-  user: null,
+  currentUser: null,
 };
 
-const userSlice = createSlice({
-  name: 'user',
+const loginSlice = createSlice({
+  name: 'login',
   initialState,
   reducers: {
-    getUser: (state) => {
+    loginUser: (state) => {
       state.loading = true;
     },
-    getUserSuccess: (state, { payload }) => {
-      state.user = payload;
+    loginUserSuccess: (state, { payload }) => {
+      state.currentUser = payload;
       state.loading = false;
       state.hasErrors = false;
     },
-    getUserFailure: (state) => {
+    loginUserFailure: (state) => {
       state.loading = false;
       state.hasErrors = true;
     },
   },
 });
 
-export default userSlice.reducer;
+export default loginSlice.reducer;
 
 //actions
-export const { getUser, getUserSuccess, getUserFailure } = userSlice.actions;
+export const { loginUser, loginUserSuccess, loginUserFailure } =
+  loginSlice.actions;
 
 //selector
-export const userSelector = (state) => state.user;
+export const currentUserSelector = (state) => state.user;
 
 //Async Thunk Action
 export function fetchUser() {
   return async (dispatch) => {
-    dispatch(getUser());
+    dispatch(loginUser());
 
     try {
       const response = await fetch(
@@ -44,9 +45,9 @@ export function fetchUser() {
       );
       const data = await response.json();
 
-      dispatch(getUserSuccess(data.meals));
+      dispatch(loginUserSuccess(data.meals));
     } catch (error) {
-      dispatch(getUserFailure());
+      dispatch(loginUserFailure());
     }
   };
 }
