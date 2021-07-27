@@ -6,6 +6,7 @@ module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
   output: {
     path: path.resolve(__dirname, 'build'),
+    publicPath: '/', //solve the url refresh problem
     filename: 'bundle.js',
   },
   mode: 'development',
@@ -49,6 +50,6 @@ module.exports = {
     // hot: false,
     compress: true,
     open: true,
-    // historyApiFallback: true,
+    historyApiFallback: true, //tell Webpack and its configuration that it should fallback for every path to your entry point
   },
 };

@@ -8,13 +8,13 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 export default function TopBarLink() {
   return (
     <>
-      <StyledLink to='/'>
+      <StyledLink to='/app'>
         <HomeIcon />
       </StyledLink>
-      <StyledLink to='/profile'>
+      <StyledLink to='app/profile'>
         <PeopleAltOutlinedIcon />
       </StyledLink>
-      <StyledLink to='/login'>
+      <StyledLink to='/'>
         <VideoLibraryIcon />
       </StyledLink>
     </>

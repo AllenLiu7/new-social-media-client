@@ -4,16 +4,19 @@ import Login from '../page/login';
 
 const routes = [
   {
-    path: '/profile',
-    component: Profile,
-  },
-  {
-    path: '/login',
-    component: Login,
-  },
-  {
     path: '/',
+    component: Login,
+    exact: true,
+  },
+  {
+    path: '/app',
     component: Home,
+    exact: true,
+  },
+  {
+    path: '/profile',
+    exact: true,
+    component: Profile,
   },
 ];
 

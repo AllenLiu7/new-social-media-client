@@ -3,6 +3,7 @@ import SideBar from '../components/sidebar';
 import RightBar from '../components/rightbar';
 import Feed from '../components/feed';
 import styled from 'styled-components';
+
 export default function Home() {
   return (
     <>
