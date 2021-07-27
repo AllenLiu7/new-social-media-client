@@ -1,7 +1,7 @@
 import { Route } from 'react-router';
 import { Switch } from 'react-router-dom';
 
-export function RouteWithSubRoutes(route) {
+function RouteWithSubRoutes(route) {
   return (
     <Route
       path={route.path}
@@ -13,12 +13,12 @@ export function RouteWithSubRoutes(route) {
   );
 }
 
-// export function RenderRoutes({ routes }) {
-//   return (
-//     <Switch>
-//       {routes.map((route, i) => (
-//         <RouteWithSubRoutes key={i} {...route} />
-//       ))}
-//     </Switch>
-//   );
-// }
+export function RenderRoutes({ routes }) {
+  return (
+    <Switch>
+      {routes.map((route, i) => (
+        <RouteWithSubRoutes key={i} {...route} />
+      ))}
+    </Switch>
+  );
+}

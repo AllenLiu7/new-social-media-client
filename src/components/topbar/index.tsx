@@ -21,7 +21,7 @@ export default function TopBar() {
 
         <TopBarRight>
           <TopBarIcon />
-          <Link to='/profile'>
+          <Link to='/app/profile'>
             <StyledProfilePic />
           </Link>
         </TopBarRight>

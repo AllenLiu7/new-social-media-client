@@ -11,7 +11,7 @@ export default function TopBarLink() {
       <StyledLink to='/app'>
         <HomeIcon />
       </StyledLink>
-      <StyledLink to='app/profile'>
+      <StyledLink to='/app/profile'>
         <PeopleAltOutlinedIcon />
       </StyledLink>
       <StyledLink to='/'>

@@ -1,22 +1,29 @@
+import { RenderRoutes } from './RenderRoutes';
+
 import Home from '../page/home';
 import Profile from '../page/profile';
 import Login from '../page/login';
 
 const routes = [
-  {
-    path: '/',
-    component: Login,
-    exact: true,
-  },
+  { path: '/', key: 'ROOT', exact: true, component: Login },
   {
     path: '/app',
-    component: Home,
-    exact: true,
-  },
-  {
-    path: '/profile',
-    exact: true,
-    component: Profile,
+    key: 'APP',
+    component: RenderRoutes,
+    routes: [
+      {
+        path: '/app',
+        key: 'APP_ROOT',
+        exact: true,
+        component: Home,
+      },
+      {
+        path: '/app/profile',
+        key: 'APP_PAGE',
+        exact: true,
+        component: Profile,
+      },
+    ],
   },
 ];
 
