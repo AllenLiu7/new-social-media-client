@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import GoogleButton from '../common/googleButton';
+import GoogleButton from '../components/common/googleButton';
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import loginReducer from './login';
+import getUserReducer from './getUser';
 
 const rootReducer = combineReducers({
-  login: loginReducer,
+  user: getUserReducer,
 });
 
 export default rootReducer;

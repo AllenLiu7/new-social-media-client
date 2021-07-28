@@ -4,8 +4,7 @@ import Home from '../page/home';
 import Profile from '../page/profile';
 import Login from '../page/login';
 
-const routes = [
-  { path: '/', key: 'ROOT', exact: true, component: Login },
+export const privateRoutes = [
   {
     path: '/app',
     key: 'APP',
@@ -19,7 +18,7 @@ const routes = [
       },
       {
         path: '/app/profile',
-        key: 'APP_PAGE',
+        key: 'APP_PROFILE',
         exact: true,
         component: Profile,
       },
@@ -27,4 +26,12 @@ const routes = [
   },
 ];
 
-export default routes;
+export const publicRoutes = [
+  { path: '/', key: 'ROOT', exact: true, component: Login },
+  {
+    path: '/demo',
+    key: 'ROOT_DEMO',
+    exact: true,
+    component: Login,
+  },
+];

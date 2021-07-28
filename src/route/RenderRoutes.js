@@ -1,24 +1,69 @@
-import { Route } from 'react-router';
-import { Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-function RouteWithSubRoutes(route) {
+const RouteWithSubRoutes = (route) => {
   return (
     <Route
       path={route.path}
-      render={(props) => (
-        // pass the sub-routes down to keep nesting
-        <route.component {...props} routes={route.routes} />
-      )}
+      exact={route.exact}
+      render={(props) => <route.component {...props} routes={route.routes} />}
     />
   );
-}
+};
 
-export function RenderRoutes({ routes }) {
+const PrivateRouteWithSubRoutes = (route) => {
   return (
-    <Switch>
-      {routes.map((route, i) => (
-        <RouteWithSubRoutes key={i} {...route} />
-      ))}
-    </Switch>
+    <Route
+      path={route.path}
+      exact={route.exact}
+      render={(props) => {
+        return true ? (
+          <route.component {...props} routes={route.routes} />
+        ) : (
+          <Redirect to='/' />
+        );
+      }}
+    />
   );
-}
+};
+
+// export const RenderRoutes = ({ routes }) => {
+//   return (
+//     <Switch>
+//       {routes.map((route, i) => (
+//         <RouteWithSubRoutes key={i} {...route} />
+//       ))}
+//       {/* <Route path='*'>
+//         <div>404</div>
+//       </Route> */}
+//     </Switch>
+//   );
+// };
+
+// export const RenderPrivateRoutes = ({ routes }) => {
+//   return (
+//     <Switch>
+//       {routes.map((route, i) => (
+//         <PrivateRouteWithSubRoutes key={i} {...route} />
+//       ))}
+//       {/* <Route path='*'>
+//         <div>404</div>
+//       </Route> */}
+//     </Switch>
+//   );
+// };
+
+export const RenderRoutes = (routes) => {
+  return routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />);
+};
+
+export const RenderPrivateRoutes = (routes) => {
+  return routes.map((route, i) => (
+    <PrivateRouteWithSubRoutes key={i} {...route} />
+  ));
+};
+
+export const RenderAll = (publicRoutes, privateRoutes) => {
+  const publicArray = RenderRoutes(publicRoutes);
+  const privateArray = RenderPrivateRoutes(privateRoutes);
+  return [...publicArray, ...privateArray];
+};
