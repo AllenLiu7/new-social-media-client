@@ -11,7 +11,7 @@ export default function PostCard({ src, name, desc }) {
       <Container>
         <ProfileWrap>
           <ProfileHead
-            src={src || '../../public/assets/profile-pictures/72.jpg'}
+            src={src || '../../public/assets/profile-pictures/1.jpg'}
             name={name || 'Allen Liu'}
           />
           <TimeStamp>1 week ago</TimeStamp>

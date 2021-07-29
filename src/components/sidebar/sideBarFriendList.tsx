@@ -16,8 +16,6 @@ export default function SideBarFriendList() {
     fetchData();
   }, []);
 
-  console.log(users);
-
   return (
     <>
       {users.map((user, index) => (

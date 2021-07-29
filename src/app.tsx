@@ -1,9 +1,9 @@
 //import { hot } from 'react-hot-loader/root';
 import GlobalStyle from './theme/globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { userSelector, fetchUser } from './redux/slice/user';
 
 import Home from './page/home';
 import Profile from './page/profile';
@@ -12,10 +12,11 @@ import SignUp from './page/signUp';
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.getUser.currentUser);
-  useEffect();
-
-  console.log(user);
+  const user = useSelector((state) => state.user.currentUser);
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, []);
+  // console.log(user.username);
   return (
     <Router>
       <GlobalStyle />
@@ -23,7 +24,7 @@ function App() {
         <Route exact path='/' component={Login} />
         <Route path='/signup' component={SignUp} />
         <Route exact path='/app' component={Home} />
-        <Route exact path='/app/profile/:username' component={Profile} />
+        <Route exact path='/app/profile' component={Profile} />
       </Switch>
     </Router>
   );

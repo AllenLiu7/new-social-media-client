@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledProfilePic = styled.img.attrs((props) => ({
-  src: props.src || '../../public/assets/profile-pictures/10.jpg',
+  src: props.src || '../../public/assets/profile-pictures/1.jpg',
   alt: 'User',
   height: props.height || '30px',
 }))`

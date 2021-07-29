@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
 
-export default function ProfileBanner() {
+export default function ProfileBanner({ currentUser }) {
+  const { username } = currentUser;
   return (
     <Container>
       <BannerBackground />
       <CusStyledProfilePic />
       <NameWrap>
-        <Name>Allen Liu</Name>
+        <Name>{username}</Name>
         <Greeting>I feel so happy right now! Let's eat!</Greeting>
       </NameWrap>
     </Container>

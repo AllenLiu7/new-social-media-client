@@ -3,10 +3,14 @@ import ProfileBanner from '../profile/profileBanner';
 import Feed from '../feed';
 import RightBar from '../rightbar';
 
+import { useSelector } from 'react-redux';
+
 export default function ProfileBar() {
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser);
   return (
     <Container>
-      <ProfileBanner />
+      <ProfileBanner currentUser={currentUser} />
       <Content>
         <Feed />
         <RightBar profile />
