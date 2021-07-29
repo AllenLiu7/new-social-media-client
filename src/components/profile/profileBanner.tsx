@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
+const PF = process.env.PUBLIC_FOLDER;
 
 export default function ProfileBanner({ currentUser }) {
-  const { username } = currentUser;
+  const { username, profilePicture } = currentUser;
+
   return (
     <Container>
       <BannerBackground />
-      <CusStyledProfilePic />
+      <CusStyledProfilePic src={profilePicture} />
       <NameWrap>
         <Name>{username}</Name>
         <Greeting>I feel so happy right now! Let's eat!</Greeting>
@@ -23,7 +25,7 @@ const Container = styled.div`
 `;
 
 const BannerBackground = styled.img.attrs({
-  src: '../../public/assets/food.jpg',
+  src: `${PF}cover/1.jpg`,
   alt: 'banner',
 })`
   height: 300px;

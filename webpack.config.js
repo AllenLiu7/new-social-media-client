@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -43,6 +44,7 @@ module.exports = {
       template: path.resolve(__dirname, './src/public/index.html'), //point to the template for react
     }),
     new CleanWebpackPlugin(), //A webpack plugin to remove/clean your build folder(s).
+    new Dotenv(),
   ],
   devServer: {
     contentBase: path.join(__dirname, './src'),

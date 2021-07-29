@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function ProfileBar() {
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
+
   return (
     <Container>
       <ProfileBanner currentUser={currentUser} />
