@@ -2,8 +2,10 @@
 import GlobalStyle from './theme/globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { userSelector, fetchUser } from './redux/slice/user';
+import { useDispatch } from 'react-redux';
+import { fetchUser } from './redux/slice/user';
+import { fetchUserPosts } from './redux/slice/userPosts';
+import { fetchFollowings } from './redux/slice/followings';
 
 import Home from './page/home';
 import Profile from './page/profile';
@@ -12,11 +14,13 @@ import SignUp from './page/signUp';
 
 function App() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.currentUser);
+
   useEffect(() => {
     dispatch(fetchUser());
+    dispatch(fetchFollowings());
+    dispatch(fetchUserPosts());
   }, []);
-  // console.log(user.username);
+
   return (
     <Router>
       <GlobalStyle />

@@ -6,11 +6,11 @@ interface Props {
   src: string;
 }
 
-export default function ProfilePicNameBig({ name = 'Allen Liu', src }: Props) {
+export default function ProfilePicNameBig({ name, src }: Props) {
   return (
     <>
       <ProfileWrapper>
-        <CustomProfilePic src={src} />
+        <StyledProfilePic src={src} height='80px' borderRadius='10%' />
         <NameWrapper>{name}</NameWrapper>
       </ProfileWrapper>
     </>
@@ -25,10 +25,10 @@ const ProfileWrapper = styled.div`
   cursor: pointer;
 `;
 
-const CustomProfilePic = styled(StyledProfilePic)`
-  border-radius: 10%;
-  height: 80px;
-`;
+// const CustomProfilePic = styled(StyledProfilePic)`
+//   border-radius: 10%;
+//   height: 80px;
+// `;
 
 const NameWrapper = styled.span`
   margin-top: 2px;

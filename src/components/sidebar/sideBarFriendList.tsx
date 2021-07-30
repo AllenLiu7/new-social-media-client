@@ -1,36 +1,21 @@
 import styled from 'styled-components';
-import ProfileHead from '../common/profilePicName';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import ProfilePicName from '../common/profilePicName';
+import { useSelector } from 'react-redux';
 
 export default function SideBarFriendList() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get('https://randomuser.me/api/?results=10');
-      //console.log(result.data.results);
-      setUsers(result.data.results);
-    };
-
-    fetchData();
-  }, []);
-
+  const followings = useSelector((state) => state.followings.followings);
+  // console.log(followings);
   return (
     <>
-      {users.map((user, index) => (
-        <ProfileHeadWrap key={index}>
-          <ProfileHead
-            name={user.name.first}
-            src={user.picture.medium}
-            key={index}
-          />
-        </ProfileHeadWrap>
+      {followings.map((user, index) => (
+        <ProfilePicNameWrap key={index}>
+          <ProfilePicName name='allen' src={user.profilePicture} key={index} />
+        </ProfilePicNameWrap>
       ))}
     </>
   );
 }
 
-const ProfileHeadWrap = styled.div`
+const ProfilePicNameWrap = styled.div`
   margin-bottom: 20px;
 `;
