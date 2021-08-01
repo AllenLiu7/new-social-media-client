@@ -3,9 +3,7 @@ import ProfileHead from '../common/profilePicName';
 import PostCardLike from './postCardLike';
 import PostCardComment from './postCardComment';
 
-export default function PostCard({ src, name, desc }) {
-  const img = true;
-
+export default function PostCard({ src, name, desc, img }) {
   return (
     <>
       <Container>

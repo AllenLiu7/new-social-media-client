@@ -43,6 +43,3 @@ const { reducer } = createSlice({
 });
 
 export default reducer;
-
-//selector
-export const followingsSelector = (state) => state.followings.followings;

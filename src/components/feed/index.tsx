@@ -7,6 +7,9 @@ export default function Feed() {
     <>
       <FeedContainer>
         <ShareCard />
+        {/* {posts.map((post, i) => (
+          <PostCard key={i} post={post} />
+        ))} */}
         <PostCard />
         <PostCard />
         <PostCard />

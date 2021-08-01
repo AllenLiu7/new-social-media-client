@@ -5,7 +5,7 @@ import ProfilePicNameBig from '../common/profilePicNameBig';
 
 export default function RightBarFriendListCard() {
   const followings = useSelector((state) => state.followings.followings);
-  console.log(followings);
+  //console.log(followings);
   return (
     <CustomCard>
       <Title>Friends</Title>

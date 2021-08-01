@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const initialState = {
   loading: false,
   hasErrors: false,
-  userPosts: [],
+  posts: [],
 };
 
 //Async Thunk Action
@@ -28,7 +28,7 @@ const { reducer } = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchUserPosts.fulfilled, (state, action) => {
-      state.userPosts = action.payload;
+      state.posts = action.payload;
       state.loading = false;
       state.hasErrors = false;
     });
@@ -43,6 +43,3 @@ const { reducer } = createSlice({
 });
 
 export default reducer;
-
-//selector
-export const userPostsSelector = (state) => state.user.userPosts;

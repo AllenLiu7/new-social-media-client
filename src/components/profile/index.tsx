@@ -4,15 +4,18 @@ import Feed from '../feed';
 import RightBar from '../rightbar';
 
 import { useSelector } from 'react-redux';
+import { userPostsSelector, userSelector } from '../../redux/selectors';
 
 export default function ProfileBar() {
-  const { currentUser } = useSelector((state) => state.user);
+  const currentUser = useSelector(userSelector);
+  const posts = useSelector(userPostsSelector);
 
+  console.log(posts);
   return (
     <Container>
       <ProfileBanner currentUser={currentUser} />
       <Content>
-        <Feed />
+        <Feed posts={posts} />
         <RightBar profile />
       </Content>
     </Container>

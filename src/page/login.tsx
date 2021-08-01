@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import GoogleButton from '../components/common/googleButton';
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
@@ -97,9 +98,16 @@ export default function Login() {
             />
           </FormControl>
           <Box mt={2}>
-            <Button type='submit' fullWidth variant='contained' color='primary'>
-              Sign In
-            </Button>
+            <Link to='/app'>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='primary'
+              >
+                Sign In
+              </Button>
+            </Link>
           </Box>
           <Box mt={2}>
             <Button

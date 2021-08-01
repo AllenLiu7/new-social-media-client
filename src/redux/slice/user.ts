@@ -43,6 +43,3 @@ const { reducer } = createSlice({
 });
 
 export default reducer;
-
-//selector
-export const userSelector = (state) => state.user.currentUser;
