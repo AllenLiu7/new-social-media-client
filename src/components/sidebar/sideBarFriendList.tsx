@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import ProfilePicName from '../common/profilePicName';
 import { useSelector } from 'react-redux';
+import { followingUsersSelector } from '../../redux/slice/getFollowingUsers';
 
 export default function SideBarFriendList() {
-  const followings = useSelector((state) => state.followings.followings);
+  const followingUsers = useSelector(followingUsersSelector);
   // console.log(followings);
   return (
     <>
-      {followings.map((user, index) => (
+      {followingUsers.map((user, index) => (
         <ProfilePicNameWrap key={index}>
           <ProfilePicName name='allen' src={user.profilePicture} key={index} />
         </ProfilePicNameWrap>

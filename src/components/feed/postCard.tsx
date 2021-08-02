@@ -3,21 +3,19 @@ import ProfileHead from '../common/profilePicName';
 import PostCardLike from './postCardLike';
 import PostCardComment from './postCardComment';
 
-export default function PostCard({ src, name, desc, img }) {
+export default function PostCard({ post, user }) {
   return (
     <>
       <Container>
         <ProfileWrap>
-          <ProfileHead
-            src={src || '../../public/assets/profile-pictures/1.jpg'}
-            name={name || 'Allen Liu'}
-          />
+          <ProfileHead src={user.profilePicture} name={'Allen Liu'} />
           <TimeStamp>1 week ago</TimeStamp>
         </ProfileWrap>
 
         <PostContent>
-          <DescWrap>{desc || <div>This is my first post</div>}</DescWrap>
-          {img ? <StyledImg /> : null}
+          <DescWrap>{post.desc}</DescWrap>
+
+          <StyledImg src={process.env.PUBLIC_FOLDER + post.img} />
 
           <PostBottomWrap>
             <PostCardLike />
@@ -73,10 +71,10 @@ const DescWrap = styled.div`
   margin: 0px 20px 20px 20px;
 `;
 
-const StyledImg = styled.img.attrs({
-  src: '../../public/assets/post/sample2.jpg',
+const StyledImg = styled.img.attrs((props) => ({
+  src: props.src,
   alt: 'postPic',
-})`
+}))`
   width: 100%;
   align-self: center;
   max-height: 800px;

@@ -3,12 +3,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const initialState = {
   loading: false,
   hasErrors: false,
-  followings: [],
+  followingUsers: [],
 };
 
 //Async Thunk Action
-export const fetchFollowings = createAsyncThunk(
-  'user/fetchFollowings', //name of your slice plus the name of thunk creator
+export const fetchFollowingUsers = createAsyncThunk(
+  'userFollowings/fetchFollowings', //name of your slice plus the name of thunk creator
   async () => {
     try {
       const response = await fetch(
@@ -27,15 +27,15 @@ const { reducer } = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchFollowings.fulfilled, (state, action) => {
-      state.followings = action.payload;
+    builder.addCase(fetchFollowingUsers.fulfilled, (state, action) => {
+      state.followingUsers = action.payload;
       state.loading = false;
       state.hasErrors = false;
     });
-    builder.addCase(fetchFollowings.pending, (state) => {
+    builder.addCase(fetchFollowingUsers.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchFollowings.rejected, (state) => {
+    builder.addCase(fetchFollowingUsers.rejected, (state) => {
       state.loading = false;
       state.hasErrors = true;
     });
@@ -43,3 +43,7 @@ const { reducer } = createSlice({
 });
 
 export default reducer;
+
+//selectors
+export const followingUsersSelector = (state) =>
+  state.followingUsers.followingUsers;

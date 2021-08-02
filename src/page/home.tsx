@@ -10,7 +10,7 @@ export default function Home() {
       <TopBar />
       <HomeContainer>
         <SideBar />
-        <Feed />
+        {/* <Feed /> */}
         <RightBar />
       </HomeContainer>
     </>

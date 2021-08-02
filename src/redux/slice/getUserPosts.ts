@@ -3,16 +3,16 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const initialState = {
   loading: false,
   hasErrors: false,
-  currentUser: {},
+  posts: [],
 };
 
 //Async Thunk Action
-export const fetchUser = createAsyncThunk(
-  'user/fetchUser', //name of your slice plus the name of thunk creator
+export const fetchUserPosts = createAsyncThunk(
+  'userPosts/fetchUserPosts', //name of your slice plus the name of thunk creator
   async () => {
     try {
       const response = await fetch(
-        'http://localhost:8000/api/user/60ed4aa170b49b2b843f43d6'
+        'http://localhost:8000/api/post/profile/60ed4aa170b49b2b843f43d6'
       );
       const data = await response.json();
       return data;
@@ -23,19 +23,19 @@ export const fetchUser = createAsyncThunk(
 );
 
 const { reducer } = createSlice({
-  name: 'user',
+  name: 'userPosts',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.currentUser = action.payload;
+    builder.addCase(fetchUserPosts.fulfilled, (state, action) => {
+      state.posts = action.payload;
       state.loading = false;
       state.hasErrors = false;
     });
-    builder.addCase(fetchUser.pending, (state) => {
+    builder.addCase(fetchUserPosts.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchUser.rejected, (state) => {
+    builder.addCase(fetchUserPosts.rejected, (state) => {
       state.loading = false;
       state.hasErrors = true;
     });
@@ -43,3 +43,6 @@ const { reducer } = createSlice({
 });
 
 export default reducer;
+
+//selectors
+export const userPostsSelector = (state) => state.userPosts.posts;

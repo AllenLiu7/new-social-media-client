@@ -7,8 +7,8 @@ export const initialState = {
 };
 
 //Async Thunk Action
-export const fetchUserPosts = createAsyncThunk(
-  'userPosts/fetchUserPosts', //name of your slice plus the name of thunk creator
+export const fetchTimelinePosts = createAsyncThunk(
+  'timelinePosts/fetchTimelinePosts', //name of your slice plus the name of thunk creator
   async () => {
     try {
       const response = await fetch(
@@ -23,19 +23,21 @@ export const fetchUserPosts = createAsyncThunk(
 );
 
 const { reducer } = createSlice({
-  name: 'userPosts',
+  name: 'timelinePosts',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchUserPosts.fulfilled, (state, action) => {
-      state.posts = action.payload;
+    builder.addCase(fetchTimelinePosts.fulfilled, (state, action) => {
+      state.posts = action.payload.sort((p1, p2) => {
+        return new Date(p2.updatedAt) - new Date(p1.updatedAt);
+      });
       state.loading = false;
       state.hasErrors = false;
     });
-    builder.addCase(fetchUserPosts.pending, (state) => {
+    builder.addCase(fetchTimelinePosts.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(fetchUserPosts.rejected, (state) => {
+    builder.addCase(fetchTimelinePosts.rejected, (state) => {
       state.loading = false;
       state.hasErrors = true;
     });
@@ -43,3 +45,6 @@ const { reducer } = createSlice({
 });
 
 export default reducer;
+
+//selectors
+export const timelinePostsSelector = (state) => state.timelinePosts.posts;

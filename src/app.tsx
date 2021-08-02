@@ -3,9 +3,10 @@ import GlobalStyle from './theme/globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchUser } from './redux/slice/user';
-import { fetchUserPosts } from './redux/slice/userPosts';
-import { fetchFollowings } from './redux/slice/followings';
+import { fetchUser } from './redux/slice/getUser';
+import { fetchUserPosts } from './redux/slice/getUserPosts';
+import { fetchFollowingUsers } from './redux/slice/getFollowingUsers';
+import { fetchTimelinePosts } from './redux/slice/getTimelinePosts';
 
 import Home from './page/home';
 import Profile from './page/profile';
@@ -17,8 +18,9 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchUser());
-    dispatch(fetchFollowings());
+    dispatch(fetchFollowingUsers());
     dispatch(fetchUserPosts());
+    dispatch(fetchTimelinePosts());
   }, []);
 
   return (
