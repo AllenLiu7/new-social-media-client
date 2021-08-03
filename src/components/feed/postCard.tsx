@@ -3,19 +3,36 @@ import ProfileHead from '../common/profilePicName';
 import PostCardLike from './postCardLike';
 import PostCardComment from './postCardComment';
 
-export default function PostCard({ post, user }) {
+import { useEffect, useState } from 'react';
+
+export default function PostCard({ post }) {
+  console.log(post.userId);
+  const [user, setUser] = useState({});
+  const { userId, img, desc } = post;
+
+  useEffect(() => {
+    const fetchUser = async (userId) => {
+      const response = await fetch(
+        ` http://localhost:8000/api/user?userId=${userId}`
+      );
+      const data = await response.json();
+      setUser(data);
+    };
+
+    fetchUser(userId);
+  }, [userId]);
+
   return (
     <>
       <Container>
         <ProfileWrap>
-          <ProfileHead src={user.profilePicture} name={'Allen Liu'} />
+          <ProfileHead src={user.profilePicture} name={user.username} />
           <TimeStamp>1 week ago</TimeStamp>
         </ProfileWrap>
 
         <PostContent>
-          <DescWrap>{post.desc}</DescWrap>
-
-          <StyledImg src={process.env.PUBLIC_FOLDER + post.img} />
+          <DescWrap>{desc}</DescWrap>
+          {img ? <StyledImg src={process.env.PUBLIC_FOLDER + img} /> : null}
 
           <PostBottomWrap>
             <PostCardLike />

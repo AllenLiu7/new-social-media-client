@@ -3,7 +3,7 @@ import GlobalStyle from './theme/globalStyles';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchUser } from './redux/slice/getUser';
+import { fetchCurrentUser } from './redux/slice/getCurrentUser';
 import { fetchUserPosts } from './redux/slice/getUserPosts';
 import { fetchFollowingUsers } from './redux/slice/getFollowingUsers';
 import { fetchTimelinePosts } from './redux/slice/getTimelinePosts';
@@ -15,9 +15,9 @@ import SignUp from './page/signUp';
 
 function App() {
   const dispatch = useDispatch();
-
+  const userId = '60ed4aa170b49b2b843f43d6';
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(fetchCurrentUser(userId));
     dispatch(fetchFollowingUsers());
     dispatch(fetchUserPosts());
     dispatch(fetchTimelinePosts());

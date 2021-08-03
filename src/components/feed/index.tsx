@@ -3,20 +3,18 @@ import { useSelector } from 'react-redux';
 import ShareCard from './shareCard';
 import PostCard from './postCard';
 
-export default function Feed({ posts, users }) {
-  const userLoading = useSelector((state) => state.user.loading);
+export default function Feed({ posts }) {
   const postsLoading = useSelector((state) => state.userPosts.loading);
 
-  console.log(posts);
   return (
     <>
       <FeedContainer>
         <ShareCard />
 
-        {postsLoading || userLoading ? (
+        {postsLoading ? (
           <div>Loading</div>
         ) : (
-          posts.map((post, i) => <PostCard key={i} post={post} user={users} />)
+          posts.map((post, i) => <PostCard key={i} post={post} />)
         )}
       </FeedContainer>
       t
