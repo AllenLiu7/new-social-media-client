@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 
 interface Props {
-  likes?: number;
+  likes?: [];
 }
 
-export default function PostCardLike({ likes }: Props) {
+export default function PostCardLike({ like, handleLikeClick }: Props) {
   return (
     <Container>
-      <PostLike />
+      <PostLike
+        onClick={() => {
+          handleLikeClick();
+        }}
+      />
       <PostHeart />
-      <LikeCountWrap>{`${likes || 100} people likes it`}</LikeCountWrap>
+      <LikeCountWrap>{`${like} people likes it`}</LikeCountWrap>
     </Container>
   );
 }
@@ -25,6 +29,7 @@ const PostLike = styled.img.attrs({
   alt: 'like',
 })`
   height: 25px;
+  cursor: pointer;
 `;
 
 const PostHeart = styled.img.attrs({

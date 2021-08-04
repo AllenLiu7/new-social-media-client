@@ -2,31 +2,49 @@ import styled from 'styled-components';
 import ProfileHead from '../common/profilePicName';
 import PostCardLike from './postCardLike';
 import PostCardComment from './postCardComment';
-
-import { useEffect, useState } from 'react';
+import { useUserInfo } from '../../Hook/useUserInfo';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../redux/slice/getCurrentUser';
 
 export default function PostCard({ post }) {
-  console.log(post.userId);
-  const [user, setUser] = useState({});
-  const { userId, img, desc } = post;
+  const { _id: currentUserId } = useSelector(currentUserSelector);
+  const { userId, img, desc, likes, _id: postId } = post;
+  const {
+    user: { profilePicture, username },
+  } = useUserInfo(userId);
 
-  useEffect(() => {
-    const fetchUser = async (userId) => {
-      const response = await fetch(
-        ` http://localhost:8000/api/user?userId=${userId}`
-      );
-      const data = await response.json();
-      setUser(data);
+  const [isLiked, setIsLiked] = useState(likes.includes(currentUserId));
+  const [like, setLike] = useState(likes.length);
+
+  const handleLikeClick = () => {
+    const updateLike = async (postId: string, currentUserId: string) => {
+      try {
+        await fetch(`http://localhost:8000/api/post/${postId}/like`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: currentUserId,
+          }),
+        });
+        console.log('updateLike');
+      } catch (err) {
+        console.log(err);
+      }
     };
 
-    fetchUser(userId);
-  }, [userId]);
+    setIsLiked(!isLiked);
+    setLike(isLiked ? like - 1 : like + 1);
+    updateLike(postId, currentUserId);
+  };
 
   return (
     <>
       <Container>
         <ProfileWrap>
-          <ProfileHead src={user.profilePicture} name={user.username} />
+          <ProfileHead src={profilePicture} name={username} />
           <TimeStamp>1 week ago</TimeStamp>
         </ProfileWrap>
 
@@ -35,7 +53,7 @@ export default function PostCard({ post }) {
           {img ? <StyledImg src={process.env.PUBLIC_FOLDER + img} /> : null}
 
           <PostBottomWrap>
-            <PostCardLike />
+            <PostCardLike like={like} handleLikeClick={handleLikeClick} />
             <PostCardComment />
           </PostBottomWrap>
         </PostContent>
