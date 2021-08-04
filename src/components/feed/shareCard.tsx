@@ -5,11 +5,16 @@ import { Input } from '../common/styled-components/input';
 import { StyledHr } from '../common/styled-components/hr';
 import { StyledButton } from '../common/styled-components/styledButton';
 
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../redux/slice/getCurrentUser';
+
 export default function ShareCard() {
+  const currentUser = useSelector(currentUserSelector);
+
   return (
     <Container>
       <TopWrapper>
-        <StyledProfilePic height='45px' />
+        <StyledProfilePic height='45px' src={currentUser.profilePicture} />
         <InputWrapper>
           <Input placeholder='What is in your mind?' />
         </InputWrapper>

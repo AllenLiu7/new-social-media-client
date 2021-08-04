@@ -17,7 +17,6 @@ export default function Feed({ posts }) {
           posts.map((post, i) => <PostCard key={i} post={post} />)
         )}
       </FeedContainer>
-      t
     </>
   );
 }

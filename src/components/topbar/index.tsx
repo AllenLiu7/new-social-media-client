@@ -5,8 +5,11 @@ import TopBarLink from './topBarLink';
 import TopBarIcon from './topBarIcons';
 import TopBarLogo from './topBarLogo';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../redux/slice/getCurrentUser';
 
 export default function TopBar() {
+  const currentUser = useSelector(currentUserSelector);
   return (
     <>
       <Container>
@@ -22,7 +25,7 @@ export default function TopBar() {
         <TopBarRight>
           <TopBarIcon />
           <Link to='/app/profile'>
-            <StyledProfilePic />
+            <StyledProfilePic src={currentUser.profilePicture} />
           </Link>
         </TopBarRight>
       </Container>
