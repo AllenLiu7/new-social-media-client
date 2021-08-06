@@ -8,7 +8,7 @@ import { currentUserSelector } from '../../redux/slice/getCurrentUser';
 import { userPostsSelector } from '../../redux/slice/getUserPosts';
 
 export default function ProfileBar() {
-  const currentUser = useSelector(currentUserSelector);
+  const { currentUser } = useSelector(currentUserSelector);
   const userPosts = useSelector(userPostsSelector);
 
   // console.log(currentUser);

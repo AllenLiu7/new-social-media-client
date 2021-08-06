@@ -3,12 +3,14 @@ import ProfileHead from '../common/profilePicName';
 import PostCardLike from './postCardLike';
 import PostCardComment from './postCardComment';
 import { useUserInfo } from '../../Hook/useUserInfo';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../redux/slice/getCurrentUser';
 
 export default function PostCard({ post }) {
-  const { _id: currentUserId } = useSelector(currentUserSelector);
+  const {
+    currentUser: { _id: currentUserId },
+  } = useSelector(currentUserSelector);
   const { userId, img, desc, likes, _id: postId } = post;
   const {
     user: { profilePicture, username },

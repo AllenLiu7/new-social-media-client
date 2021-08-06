@@ -1,7 +1,12 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import {
+  currentUserSelector,
+  loginUser,
+  clearState,
+} from '../redux/slice/getCurrentUser';
 import GoogleButton from '../components/common/googleButton';
-import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {
   Button,
@@ -14,12 +19,46 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { toast } from 'react-toastify';
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
   const [showPassword, setShowPassword] = useState(false);
+  const [formValues, SetFormValues] = useState({
+    email: 'peter@gmail.com',
+    password: '123123',
+  });
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(errorMessage);
+      dispatch(clearState());
+    }
+
+    if (isSuccess) {
+      history.push('/app');
+      dispatch(clearState());
+    }
+  }, [isError, isSuccess]);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(loginUser(formValues));
+    console.log(formValues.email);
+    console.log(formValues.password);
+  };
+
+  const handleChange = (e) => {
+    SetFormValues((preState) => ({
+      ...preState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const useStyles = makeStyles({
@@ -61,7 +100,7 @@ export default function Login() {
         </Typography>
       </Box>
       <Box border={1} ml={20} className={classes.form}>
-        <form noValidate autoComplete='off'>
+        <form noValidate autoComplete='off' onSubmit={handleSubmit}>
           <FormControl
             variant='outlined'
             fullWidth={true}
@@ -69,7 +108,13 @@ export default function Login() {
             size='medium'
           >
             <InputLabel htmlFor='component-outlined'>Email</InputLabel>
-            <OutlinedInput id='component-outlined' required labelWidth={50} />
+            <OutlinedInput
+              id='component-outlined'
+              name='email'
+              required
+              labelWidth={50}
+              onChange={handleChange}
+            />
           </FormControl>
 
           <FormControl
@@ -81,9 +126,11 @@ export default function Login() {
             <InputLabel htmlFor='component-outlined'>Password</InputLabel>
             <OutlinedInput
               id='component-outlined'
+              name='password'
               type={showPassword ? 'text' : 'password'}
               required
               labelWidth={80}
+              onChange={handleChange}
               endAdornment={
                 <InputAdornment position='end'>
                   <IconButton
@@ -98,16 +145,9 @@ export default function Login() {
             />
           </FormControl>
           <Box mt={2}>
-            <Link to='/app'>
-              <Button
-                type='submit'
-                fullWidth
-                variant='contained'
-                color='primary'
-              >
-                Sign In
-              </Button>
-            </Link>
+            <Button type='submit' fullWidth variant='contained' color='primary'>
+              Sign In
+            </Button>
           </Box>
           <Box mt={2}>
             <Button

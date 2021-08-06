@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { currentUserSelector } from '../../redux/slice/getCurrentUser';
 
 export default function TopBar() {
-  const currentUser = useSelector(currentUserSelector);
+  const { currentUser } = useSelector(currentUserSelector);
   return (
     <>
       <Container>
