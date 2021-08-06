@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import loginUserReducer from './slice/getCurrentUser';
+import loginUserReducer from './slice/loginUser';
 
 import followingUsersReducer from './slice/getFollowingUsers';
 import userPostsReducer from './slice/getUserPosts';

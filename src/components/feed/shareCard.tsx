@@ -6,7 +6,7 @@ import { StyledHr } from '../common/styled-components/hr';
 import { StyledButton } from '../common/styled-components/styledButton';
 
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../redux/slice/getCurrentUser';
+import { currentUserSelector } from '../../redux/slice/loginUser';
 
 export default function ShareCard() {
   const { currentUser } = useSelector(currentUserSelector);

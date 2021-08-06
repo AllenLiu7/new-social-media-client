@@ -9,7 +9,7 @@ import {
   timelinePostsSelector,
   fetchTimelinePosts,
 } from '../redux/slice/getTimelinePosts';
-import { currentUserSelector } from '../redux/slice/getCurrentUser';
+import { currentUserSelector } from '../redux/slice/loginUser';
 import { fetchUserPosts } from '../redux/slice/getUserPosts';
 import { fetchFollowingUsers } from '../redux/slice/getFollowingUsers';
 

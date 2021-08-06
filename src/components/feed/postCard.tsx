@@ -5,7 +5,7 @@ import PostCardComment from './postCardComment';
 import { useUserInfo } from '../../Hook/useUserInfo';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../redux/slice/getCurrentUser';
+import { currentUserSelector } from '../../redux/slice/loginUser';
 
 export default function PostCard({ post }) {
   const {

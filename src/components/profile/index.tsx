@@ -4,7 +4,7 @@ import Feed from '../feed';
 import RightBar from '../rightbar';
 
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../redux/slice/getCurrentUser';
+import { currentUserSelector } from '../../redux/slice/loginUser';
 import { userPostsSelector } from '../../redux/slice/getUserPosts';
 
 export default function ProfileBar() {

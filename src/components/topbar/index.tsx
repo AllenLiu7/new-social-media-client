@@ -6,7 +6,7 @@ import TopBarIcon from './topBarIcons';
 import TopBarLogo from './topBarLogo';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../redux/slice/getCurrentUser';
+import { currentUserSelector } from '../../redux/slice/loginUser';
 
 export default function TopBar() {
   const { currentUser } = useSelector(currentUserSelector);

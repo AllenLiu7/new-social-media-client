@@ -1,6 +1,12 @@
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import GoogleButton from '../components/common/googleButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import {
+  currentUserSelector,
+  signUpUser,
+  clearState,
+} from '../redux/slice/loginUser';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {
   Button,
@@ -13,12 +19,53 @@ import {
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { toast } from 'react-toastify';
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
+
   const [showPassword, setShowPassword] = useState(false);
+  const [formValues, SetFormValues] = useState({
+    email: '',
+    username: '',
+    password: '',
+    passwordAgain: '',
+  });
+
+  useEffect(() => {
+    if (isError) {
+      console.log(errorMessage);
+      toast.error(errorMessage);
+      dispatch(clearState());
+    }
+
+    if (isSuccess) {
+      history.push('/app');
+      dispatch(clearState());
+    }
+  }, [isError, isSuccess]);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { password, passwordAgain, email, username } = formValues;
+
+    if (password && passwordAgain && password !== passwordAgain) {
+      return toast.error("Two passwords don't match!");
+    }
+    dispatch(signUpUser({ email, password, username }));
+  };
+
+  const handleChange = (e) => {
+    SetFormValues((preState) => ({
+      ...preState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const useStyles = makeStyles({
@@ -60,7 +107,7 @@ export default function Login() {
         </Typography>
       </Box>
       <Box border={1} ml={20} className={classes.form}>
-        <form noValidate autoComplete='off'>
+        <form noValidate autoComplete='off' onSubmit={handleSubmit}>
           <FormControl
             variant='outlined'
             fullWidth={true}
@@ -68,7 +115,13 @@ export default function Login() {
             size='medium'
           >
             <InputLabel htmlFor='component-outlined'>User Name</InputLabel>
-            <OutlinedInput id='component-outlined' required labelWidth={78} />
+            <OutlinedInput
+              name='username'
+              id='component-outlined'
+              required
+              labelWidth={78}
+              onChange={handleChange}
+            />
           </FormControl>
 
           <FormControl
@@ -78,7 +131,13 @@ export default function Login() {
             size='medium'
           >
             <InputLabel htmlFor='component-outlined'>Email</InputLabel>
-            <OutlinedInput id='component-outlined' required labelWidth={40} />
+            <OutlinedInput
+              name='email'
+              id='component-outlined'
+              required
+              labelWidth={40}
+              onChange={handleChange}
+            />
           </FormControl>
 
           <FormControl
@@ -89,10 +148,12 @@ export default function Login() {
           >
             <InputLabel htmlFor='component-outlined'>Password</InputLabel>
             <OutlinedInput
+              name='password'
               id='component-outlined'
               type={showPassword ? 'text' : 'password'}
               required
               labelWidth={70}
+              onChange={handleChange}
               endAdornment={
                 <InputAdornment position='end'>
                   <IconButton
@@ -115,10 +176,12 @@ export default function Login() {
           >
             <InputLabel htmlFor='component-outlined'>Password Again</InputLabel>
             <OutlinedInput
+              name='passwordAgain'
               id='component-outlined'
               type={showPassword ? 'text' : 'password'}
               required
               labelWidth={115}
+              onChange={handleChange}
               endAdornment={
                 <InputAdornment position='end'>
                   <IconButton

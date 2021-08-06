@@ -5,7 +5,7 @@ import {
   currentUserSelector,
   loginUser,
   clearState,
-} from '../redux/slice/getCurrentUser';
+} from '../redux/slice/loginUser';
 import GoogleButton from '../components/common/googleButton';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {
@@ -150,14 +150,16 @@ export default function Login() {
             </Button>
           </Box>
           <Box mt={2}>
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              color='secondary'
-            >
-              Sign Up
-            </Button>
+            <Link to='/signup'>
+              <Button
+                type='submit'
+                fullWidth
+                variant='contained'
+                color='secondary'
+              >
+                Sign Up
+              </Button>
+            </Link>
             <GoogleButton />
           </Box>
         </form>
