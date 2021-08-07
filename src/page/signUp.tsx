@@ -2,20 +2,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import GoogleButton from '../components/common/googleButton';
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
 import {
   currentUserSelector,
   signUpUser,
   clearState,
 } from '../redux/slice/loginUser';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import {
+  ContactlessOutlined,
+  Visibility,
+  VisibilityOff,
+} from '@material-ui/icons';
 import {
   Button,
   Box,
-  InputLabel,
-  OutlinedInput,
+  TextField,
   InputAdornment,
   IconButton,
-  FormControl,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,15 +27,11 @@ import { toast } from 'react-toastify';
 export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { control, handleSubmit, watch, setError } = useForm();
+  const watchFields = watch(['password', 'passwordAgain', 'username']);
   const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
 
   const [showPassword, setShowPassword] = useState(false);
-  const [formValues, SetFormValues] = useState({
-    email: '',
-    username: '',
-    password: '',
-    passwordAgain: '',
-  });
 
   useEffect(() => {
     if (isError) {
@@ -51,21 +50,25 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const { password, passwordAgain, email, username } = formValues;
+  const onSubmit = async (data) => {
+    const { username } = data;
+    const result = await fetch('http://localhost:8000/api/auth/checkname', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username }),
+    });
+    const user = await result.json();
 
-    if (password && passwordAgain && password !== passwordAgain) {
-      return toast.error("Two passwords don't match!");
+    if (user) {
+      setError('username', {
+        type: 'validate',
+        message: 'User name is registered',
+      });
     }
-    dispatch(signUpUser({ email, password, username }));
-  };
-
-  const handleChange = (e) => {
-    SetFormValues((preState) => ({
-      ...preState,
-      [e.target.name]: e.target.value,
-    }));
+    console.log(data);
+    // dispatch(signUpUser({ email, password, username }));
   };
 
   const useStyles = makeStyles({
@@ -107,94 +110,124 @@ export default function Login() {
         </Typography>
       </Box>
       <Box border={1} ml={20} className={classes.form}>
-        <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-          <FormControl
-            variant='outlined'
-            fullWidth={true}
-            margin='normal'
-            size='medium'
-          >
-            <InputLabel htmlFor='component-outlined'>User Name</InputLabel>
-            <OutlinedInput
-              name='username'
-              id='component-outlined'
-              required
-              labelWidth={78}
-              onChange={handleChange}
-            />
-          </FormControl>
+        <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name='username'
+            control={control}
+            defaultValue=''
+            rules={{
+              required: 'User name required',
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                label='User Name'
+                variant='outlined'
+                fullWidth={true}
+                margin='normal'
+                required
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
+          />
+          <Controller
+            name='email'
+            control={control}
+            defaultValue=''
+            rules={{
+              required: 'Email required',
+              pattern: {
+                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                message: 'Not a valid email',
+              },
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                label='Email'
+                variant='outlined'
+                fullWidth={true}
+                margin='normal'
+                required
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
+          />
 
-          <FormControl
-            variant='outlined'
-            fullWidth={true}
-            margin='normal'
-            size='medium'
-          >
-            <InputLabel htmlFor='component-outlined'>Email</InputLabel>
-            <OutlinedInput
-              name='email'
-              id='component-outlined'
-              required
-              labelWidth={40}
-              onChange={handleChange}
-            />
-          </FormControl>
+          <Controller
+            name='password'
+            control={control}
+            defaultValue=''
+            rules={{
+              required: 'Password is required',
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                type={showPassword ? 'text' : 'password'}
+                required
+                label='Password'
+                variant='outlined'
+                fullWidth={true}
+                margin='normal'
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
+          />
 
-          <FormControl
-            variant='outlined'
-            fullWidth={true}
-            margin='normal'
-            size='medium'
-          >
-            <InputLabel htmlFor='component-outlined'>Password</InputLabel>
-            <OutlinedInput
-              name='password'
-              id='component-outlined'
-              type={showPassword ? 'text' : 'password'}
-              required
-              labelWidth={70}
-              onChange={handleChange}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    //onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-
-          <FormControl
-            variant='outlined'
-            fullWidth={true}
-            margin='normal'
-            size='medium'
-          >
-            <InputLabel htmlFor='component-outlined'>Password Again</InputLabel>
-            <OutlinedInput
-              name='passwordAgain'
-              id='component-outlined'
-              type={showPassword ? 'text' : 'password'}
-              required
-              labelWidth={115}
-              onChange={handleChange}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    //onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+          <Controller
+            name='passwordAgain'
+            control={control}
+            defaultValue=''
+            rules={{
+              required: 'Password again is required',
+              validate: (v) => v === watchFields[0] || "Passwords don't match",
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                type={showPassword ? 'text' : 'password'}
+                required
+                label='Password Again'
+                variant='outlined'
+                fullWidth={true}
+                margin='normal'
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
+          />
 
           <Box mt={2}>
             <Button
