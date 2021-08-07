@@ -1,18 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import GoogleButton from '../components/common/googleButton';
 import { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import {
-  currentUserSelector,
-  signUpUser,
-  clearState,
-} from '../redux/slice/loginUser';
-import {
-  ContactlessOutlined,
-  Visibility,
-  VisibilityOff,
-} from '@material-ui/icons';
+import { currentUserSelector, clearState } from '../redux/slice/loginUser';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {
   Button,
   Box,
@@ -24,7 +16,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { toast } from 'react-toastify';
 
-export default function Login() {
+export default function SignUp() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { control, handleSubmit, watch, setError } = useForm();

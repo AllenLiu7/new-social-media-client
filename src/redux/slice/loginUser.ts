@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { _loginUser, _registerUser } from '../../service/api/auth';
 
 export const initialState = {
   isLoading: false,
@@ -11,26 +12,13 @@ export const initialState = {
 //Async Thunk Action
 export const loginUser = createAsyncThunk(
   'user/loginUser', //name of your slice plus the name of thunk creator
-  async (
-    { email, password }: { email: string; password: string },
-    thunkAPI
-  ) => {
+  async (formValue, thunkAPI) => {
     try {
-      const response = await fetch(` http://localhost:8000/api/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      const data = await response.json();
+      const response = await _loginUser(formValue);
       if (response.status === 200) {
-        return data;
+        return response.data;
       } else {
-        return thunkAPI.rejectWithValue(data);
+        return thunkAPI.rejectWithValue(response.data);
       }
     } catch (error) {
       //console.log('Error', error.response.data);
@@ -41,31 +29,14 @@ export const loginUser = createAsyncThunk(
 
 export const signUpUser = createAsyncThunk(
   'user/signUpUser', //name of your slice plus the name of thunk creator
-  async (
-    {
-      email,
-      password,
-      username,
-    }: { email: string; password: string; username: string },
-    thunkAPI
-  ) => {
+  async (formValue, thunkAPI) => {
     try {
-      const response = await fetch(` http://localhost:8000/api/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          username,
-        }),
-      });
-      const data = await response.json();
+      const response = await _registerUser(formValue);
+
       if (response.status === 200) {
-        return data;
+        return response.data;
       } else {
-        return thunkAPI.rejectWithValue(data);
+        return thunkAPI.rejectWithValue(response.data);
       }
     } catch (error) {
       //console.log('Error', error.response.data);
