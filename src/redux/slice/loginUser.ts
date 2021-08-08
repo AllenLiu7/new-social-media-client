@@ -9,38 +9,28 @@ export const initialState = {
   currentUser: null,
 };
 
-//Async Thunk Action
 export const loginUser = createAsyncThunk(
-  'user/loginUser', //name of your slice plus the name of thunk creator
+  'user/loginUser',
   async (formValue, thunkAPI) => {
     try {
       const response = await _loginUser(formValue);
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        return thunkAPI.rejectWithValue(response.data);
-      }
+
+      return response.data;
     } catch (error) {
-      //console.log('Error', error.response.data);
-      thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
 export const signUpUser = createAsyncThunk(
-  'user/signUpUser', //name of your slice plus the name of thunk creator
+  'user/signUpUser',
   async (formValue, thunkAPI) => {
     try {
       const response = await _registerUser(formValue);
 
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        return thunkAPI.rejectWithValue(response.data);
-      }
+      return response.data;
     } catch (error) {
-      //console.log('Error', error.response.data);
-      thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

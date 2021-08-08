@@ -3,7 +3,11 @@ import GoogleButton from '../components/common/googleButton';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
-import { currentUserSelector, clearState } from '../redux/slice/loginUser';
+import {
+  currentUserSelector,
+  signUpUser,
+  clearState,
+} from '../redux/slice/loginUser';
 import { _checkUsername, _checkUserEmail } from '../service/api/auth';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {
@@ -62,7 +66,7 @@ export default function SignUp() {
     }
     if (!userCheck && !emailCheck) {
       console.log(data);
-      // dispatch(signUpUser({ email, password, username }));
+      dispatch(signUpUser(data));
     }
   };
 

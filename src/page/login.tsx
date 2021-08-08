@@ -27,7 +27,7 @@ export default function Login() {
   const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
   const [showPassword, setShowPassword] = useState(false);
   const [formValues, SetFormValues] = useState({
-    email: 'peter@gmail.com',
+    email: 'peter@gmal.com',
     password: '123123',
   });
 
@@ -50,8 +50,8 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(loginUser(formValues));
-    console.log(formValues.email);
-    console.log(formValues.password);
+    // console.log(formValues.email);
+    // console.log(formValues.password);
   };
 
   const handleChange = (e) => {
