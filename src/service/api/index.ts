@@ -13,8 +13,9 @@ axiosClient.interceptors.response.use(
     return response;
   },
   function (error) {
-    // let res = error.response;
-    // console.error('Looks like there was a problem. Status Code: ' + res.status);
+    if (error.response && error.response.data) {
+      return Promise.reject(error.response.data);
+    }
     return Promise.reject(error);
   }
 );
