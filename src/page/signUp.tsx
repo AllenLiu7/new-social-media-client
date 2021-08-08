@@ -79,7 +79,7 @@ export default function SignUp() {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      padding: 40,
+      padding: 50,
       borderRadius: 15,
     },
     title: {
@@ -159,6 +159,10 @@ export default function SignUp() {
             defaultValue=''
             rules={{
               required: 'Password is required',
+              minLength: {
+                value: 8,
+                message: 'At least 8 characters',
+              },
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
@@ -183,7 +187,7 @@ export default function SignUp() {
                 value={value}
                 onChange={onChange}
                 error={!!error}
-                helperText={error ? error.message : null}
+                helperText={error ? error.message : 'At least 8 characters'}
               />
             )}
           />
@@ -195,6 +199,10 @@ export default function SignUp() {
             rules={{
               required: 'Password again is required',
               validate: (v) => v === watchFields[0] || "Passwords don't match",
+              minLength: {
+                value: 8,
+                message: 'At least 8 characters',
+              },
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
               <TextField
@@ -203,7 +211,7 @@ export default function SignUp() {
                 label='Password Again'
                 variant='outlined'
                 fullWidth={true}
-                margin='normal'
+                margin='none'
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position='end'>
@@ -224,7 +232,7 @@ export default function SignUp() {
             )}
           />
 
-          <Box mt={2}>
+          <Box mt={3}>
             <Button
               type='submit'
               fullWidth
