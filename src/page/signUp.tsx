@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { currentUserSelector, clearState } from '../redux/slice/loginUser';
+import { _checkUsername, _checkUserEmail } from '../service/api/auth';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import {
   Button,
@@ -43,24 +44,26 @@ export default function SignUp() {
   };
 
   const onSubmit = async (data) => {
-    const { username } = data;
-    const result = await fetch('http://localhost:8000/api/auth/checkname', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username }),
-    });
-    const user = await result.json();
+    const { username, email } = data;
+    const { data: userCheck } = await _checkUsername({ username });
+    const { data: emailCheck } = await _checkUserEmail({ email });
 
-    if (user) {
+    if (userCheck) {
       setError('username', {
         type: 'validate',
         message: 'User name is registered',
       });
     }
-    console.log(data);
-    // dispatch(signUpUser({ email, password, username }));
+    if (emailCheck) {
+      setError('email', {
+        type: 'validate',
+        message: 'Email address is registered',
+      });
+    }
+    if (!userCheck && !emailCheck) {
+      console.log(data);
+      // dispatch(signUpUser({ email, password, username }));
+    }
   };
 
   const useStyles = makeStyles({
