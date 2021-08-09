@@ -1,17 +1,18 @@
-import TopBar from '../components/topbar';
-import SideBar from '../components/sidebar';
-import RightBar from '../components/rightbar';
-import Feed from '../components/feed';
-import styled from 'styled-components';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  timelinePostsSelector,
-  fetchTimelinePosts,
-} from '../redux/slice/getTimelinePosts';
-import { currentUserSelector } from '../redux/slice/loginUser';
-import { fetchUserPosts } from '../redux/slice/getUserPosts';
+import { useDispatch,useSelector } from 'react-redux';
+import styled from 'styled-components';
+
+import Feed from '../components/feed';
+import RightBar from '../components/rightbar';
+import SideBar from '../components/sidebar';
+import TopBar from '../components/topbar';
 import { fetchFollowingUsers } from '../redux/slice/getFollowingUsers';
+import {
+  fetchTimelinePosts,
+  timelinePostsSelector,
+} from '../redux/slice/getTimelinePosts';
+import { fetchUserPosts } from '../redux/slice/getUserPosts';
+import { currentUserSelector } from '../redux/slice/loginUser';
 
 export default function Home() {
   const dispatch = useDispatch();

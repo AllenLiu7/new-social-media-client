@@ -7,6 +7,7 @@ module.exports = {
       jsx: true, // Allows for the parsing of JSX
     },
   },
+  env: { es6: true },
   settings: {
     react: {
       version: 'detect',
@@ -31,5 +32,8 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
+  plugins: ['simple-import-sort'],
 };

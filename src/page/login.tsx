@@ -1,25 +1,27 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
 import {
-  currentUserSelector,
-  loginUser,
-  clearState,
-} from '../redux/slice/loginUser';
-import GoogleButton from '../components/common/googleButton';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import {
-  Button,
   Box,
+  Button,
+  FormControl,
+  IconButton,
+  InputAdornment,
   InputLabel,
   OutlinedInput,
-  InputAdornment,
-  IconButton,
-  FormControl,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { useEffect,useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import GoogleButton from '../components/common/googleButton';
+import {
+  clearState,
+  currentUserSelector,
+  loginUser,
+} from '../redux/slice/loginUser';
+
 
 export default function Login() {
   const dispatch = useDispatch();

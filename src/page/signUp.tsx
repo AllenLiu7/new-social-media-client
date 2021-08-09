@@ -1,25 +1,26 @@
-import { useDispatch, useSelector } from 'react-redux';
-import GoogleButton from '../components/common/googleButton';
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
 import {
-  currentUserSelector,
-  signUpUser,
-  clearState,
-} from '../redux/slice/loginUser';
-import { _checkUsername, _checkUserEmail } from '../service/api/auth';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
-import {
-  Button,
   Box,
-  TextField,
-  InputAdornment,
+  Button,
   IconButton,
+  InputAdornment,
+  TextField,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { useEffect,useState } from 'react';
+import { Controller,useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import GoogleButton from '../components/common/googleButton';
+import {
+  clearState,
+  currentUserSelector,
+  signUpUser,
+} from '../redux/slice/loginUser';
+import { _checkUserEmail,_checkUsername } from '../service/api/auth';
 
 export default function SignUp() {
   const dispatch = useDispatch();

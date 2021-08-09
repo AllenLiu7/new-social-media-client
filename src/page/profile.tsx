@@ -1,7 +1,8 @@
-import TopBar from '../components/topbar';
-import SideBar from '../components/sidebar';
 import styled from 'styled-components';
+
 import ProfileBar from '../components/profile';
+import SideBar from '../components/sidebar';
+import TopBar from '../components/topbar';
 
 export default function Profile() {
   return (
@@ -20,3 +21,4 @@ const Container = styled.div`
   height: 100%;
   display: flex;
 `;
+
