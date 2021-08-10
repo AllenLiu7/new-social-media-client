@@ -1,30 +1,21 @@
 //import { hot } from 'react-hot-loader/root';
-import GlobalStyle from './theme/globalStyles';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import StyledToastContainer from './components/common/toastContainer';
 import Home from './page/home';
-import Profile from './page/profile';
 import Login from './page/login';
+import Profile from './page/profile';
 import SignUp from './page/signUp';
 import PrivateRoute from './route/privateRoute';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import GlobalStyle from './theme/globalStyles';
 
 function App() {
   return (
     <Router>
       <GlobalStyle />
-      <ToastContainer
-        position='bottom-right'
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <StyledToastContainer />
       <Switch>
         <Route exact path='/' component={Login} />
         <Route path='/signup' component={SignUp} />

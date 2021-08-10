@@ -25,10 +25,14 @@ export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { control, handleSubmit } = useForm();
-  const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
+  const { isSuccess, isError, errorMessage, currentUser } =
+    useSelector(currentUserSelector);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
+    if (currentUser) {
+      history.push('/app');
+    }
     if (isError) {
       toast.error(errorMessage);
       dispatch(clearState());

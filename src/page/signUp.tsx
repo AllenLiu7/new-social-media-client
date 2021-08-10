@@ -27,11 +27,16 @@ export default function SignUp() {
   const history = useHistory();
   const { control, handleSubmit, watch, setError } = useForm();
   const watchFields = watch(['password']);
-  const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
+  const { isSuccess, isError, errorMessage, currentUser } =
+    useSelector(currentUserSelector);
 
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
+    if (currentUser) {
+      history.push('/app');
+    }
+
     if (isError) {
       toast.error(errorMessage);
       dispatch(clearState());

@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
 
-import loginUserReducer from './slice/loginUser';
-
 import followingUsersReducer from './slice/getFollowingUsers';
-import userPostsReducer from './slice/getUserPosts';
 import timelinePostsReducer from './slice/getTimelinePosts';
+import userPostsReducer from './slice/getUserPosts';
+import loginUserReducer from './slice/loginUser';
 
 const rootReducer = combineReducers({
   currentUser: loginUserReducer,
