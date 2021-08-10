@@ -1,16 +1,15 @@
 import {
   Box,
   Button,
-  FormControl,
   IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
+  TextField,
   Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -22,16 +21,12 @@ import {
   loginUser,
 } from '../redux/slice/loginUser';
 
-
 export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { control, handleSubmit } = useForm();
   const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
   const [showPassword, setShowPassword] = useState(false);
-  const [formValues, SetFormValues] = useState({
-    email: 'peter@gmal.com',
-    password: '123123',
-  });
 
   useEffect(() => {
     if (isError) {
@@ -49,18 +44,8 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(loginUser(formValues));
-    // console.log(formValues.email);
-    // console.log(formValues.password);
-  };
-
-  const handleChange = (e) => {
-    SetFormValues((preState) => ({
-      ...preState,
-      [e.target.name]: e.target.value,
-    }));
+  const onSubmit = (data) => {
+    dispatch(loginUser(data));
   };
 
   const useStyles = makeStyles({
@@ -102,50 +87,72 @@ export default function Login() {
         </Typography>
       </Box>
       <Box border={1} ml={20} className={classes.form}>
-        <form noValidate autoComplete='off' onSubmit={handleSubmit}>
-          <FormControl
-            variant='outlined'
-            fullWidth={true}
-            margin='normal'
-            size='medium'
-          >
-            <InputLabel htmlFor='component-outlined'>Email</InputLabel>
-            <OutlinedInput
-              id='component-outlined'
-              name='email'
-              required
-              labelWidth={50}
-              onChange={handleChange}
-            />
-          </FormControl>
+        <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name='email'
+            control={control}
+            defaultValue=''
+            rules={{
+              required: 'Email required',
+              pattern: {
+                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                message: 'Not a valid email',
+              },
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                label='Email'
+                variant='outlined'
+                fullWidth={true}
+                margin='normal'
+                required
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
+          />
 
-          <FormControl
-            variant='outlined'
-            fullWidth={true}
-            margin='normal'
-            size='medium'
-          >
-            <InputLabel htmlFor='component-outlined'>Password</InputLabel>
-            <OutlinedInput
-              id='component-outlined'
-              name='password'
-              type={showPassword ? 'text' : 'password'}
-              required
-              labelWidth={80}
-              onChange={handleChange}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    //onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+          <Controller
+            name='password'
+            control={control}
+            defaultValue=''
+            rules={{
+              required: 'Password is required',
+              minLength: {
+                value: 6,
+                message: 'At least 6 characters',
+              },
+            }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <TextField
+                type={showPassword ? 'text' : 'password'}
+                required
+                label='Password'
+                variant='outlined'
+                fullWidth={true}
+                margin='normal'
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? error.message : null}
+              />
+            )}
+          />
+
           <Box mt={2}>
             <Button type='submit' fullWidth variant='contained' color='primary'>
               Sign In

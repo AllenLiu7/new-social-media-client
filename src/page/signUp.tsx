@@ -8,8 +8,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { useEffect,useState } from 'react';
-import { Controller,useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -20,20 +20,19 @@ import {
   currentUserSelector,
   signUpUser,
 } from '../redux/slice/loginUser';
-import { _checkUserEmail,_checkUsername } from '../service/api/auth';
+import { _checkUserEmail, _checkUsername } from '../service/api/auth';
 
 export default function SignUp() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { control, handleSubmit, watch, setError } = useForm();
-  const watchFields = watch(['password', 'passwordAgain', 'username']);
+  const watchFields = watch(['password']);
   const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
 
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (isError) {
-      console.log(errorMessage);
       toast.error(errorMessage);
       dispatch(clearState());
     }
@@ -165,8 +164,8 @@ export default function SignUp() {
             rules={{
               required: 'Password is required',
               minLength: {
-                value: 8,
-                message: 'At least 8 characters',
+                value: 6,
+                message: 'At least 6 characters',
               },
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -192,7 +191,7 @@ export default function SignUp() {
                 value={value}
                 onChange={onChange}
                 error={!!error}
-                helperText={error ? error.message : 'At least 8 characters'}
+                helperText={error ? error.message : 'At least 6 characters'}
               />
             )}
           />
@@ -206,7 +205,7 @@ export default function SignUp() {
               validate: (v) => v === watchFields[0] || "Passwords don't match",
               minLength: {
                 value: 8,
-                message: 'At least 8 characters',
+                message: 'At least 6 characters',
               },
             }}
             render={({ field: { onChange, value }, fieldState: { error } }) => (
