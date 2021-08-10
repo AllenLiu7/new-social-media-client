@@ -1,15 +1,23 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import SearchBar from './searchBar';
-import TopBarLink from './topBarLink';
-import TopBarIcon from './topBarIcons';
-import TopBarLogo from './topBarLogo';
+
+import { currentUserSelector, logoutUser } from '../../redux/slice/loginUser';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
-import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../redux/slice/loginUser';
+import SearchBar from './searchBar';
+import TopBarIcon from './topBarIcons';
+import TopBarLink from './topBarLink';
+import TopBarLogo from './topBarLogo';
 
 export default function TopBar() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const { currentUser } = useSelector(currentUserSelector);
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    history.push('/');
+  };
   return (
     <>
       <Container>
@@ -27,6 +35,7 @@ export default function TopBar() {
           <Link to='/app/profile'>
             <StyledProfilePic src={currentUser.profilePicture} />
           </Link>
+          <LogoutDiv onClick={handleLogout}>Log out</LogoutDiv>
         </TopBarRight>
       </Container>
     </>
@@ -58,9 +67,15 @@ const TopBarCenter = styled.div`
 `;
 
 const TopBarRight = styled.div`
-  flex: 2;
+  flex: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: 60px;
+`;
+
+const LogoutDiv = styled.div`
+  padding-left: 30px;
+  color: white;
+  cursor: pointer;
 `;

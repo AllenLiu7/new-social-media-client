@@ -45,6 +45,9 @@ const { reducer, actions } = createSlice({
       state.isError = false;
       state.errorMessage = '';
     },
+    logoutUser(state) {
+      state.currentUser = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
@@ -81,7 +84,7 @@ const { reducer, actions } = createSlice({
 export default reducer;
 
 //action
-export const { clearState } = actions;
+export const { clearState, logoutUser } = actions;
 
 //selector
 export const currentUserSelector = (state) => state.currentUser;
