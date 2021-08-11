@@ -1,21 +1,27 @@
-import styled from 'styled-components';
-
+import { blue, green, red, yellow } from '@material-ui/core/colors';
 import {
-  PhotoCamera,
+  EmojiEmotions,
   Label,
   LocationOn,
-  EmojiEmotions,
+  PhotoCamera,
 } from '@material-ui/icons';
-
-import { green, blue, yellow, red } from '@material-ui/core/colors';
+import styled from 'styled-components';
 
 export default function ShareOptions() {
   return (
     <>
       <Container>
         <IconWrapper>
-          <PhotoCamera style={{ color: red[500] }} />
-          <Link>Photo or Video</Link>
+          <InputLabel>
+            <PhotoCamera style={{ color: red[500] }} />
+            <InputSpan>Photo or Video</InputSpan>
+            <input
+              name='image'
+              style={{ display: 'none' }}
+              type='file'
+              accept='.png,.jpeg,.jpg'
+            />
+          </InputLabel>
         </IconWrapper>
         <IconWrapper>
           <Label style={{ color: blue[500] }} />
@@ -51,4 +57,14 @@ const IconWrapper = styled.div`
 const Link = styled.div`
   margin-left: 5px;
   cursor: pointer;
+`;
+
+const InputLabel = styled.label`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const InputSpan = styled.span`
+  margin-left: 5px;
 `;

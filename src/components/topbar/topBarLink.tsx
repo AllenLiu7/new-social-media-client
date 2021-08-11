@@ -1,17 +1,22 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { currentUserSelector } from '../../redux/slice/loginUser';
 
 export default function TopBarLink() {
+  const { currentUser } = useSelector(currentUserSelector);
+  const username = currentUser.username.toLowerCase();
+
   return (
     <>
       <StyledLink to='/app'>
         <HomeIcon />
       </StyledLink>
-      <StyledLink to='/app/profile'>
+      <StyledLink to={`/app/profile/${username}`}>
         <PeopleAltOutlinedIcon />
       </StyledLink>
       <StyledLink to='/'>

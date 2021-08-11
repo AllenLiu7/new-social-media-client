@@ -1,31 +1,69 @@
+import axios from 'axios';
+import { useRef } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+
+import { currentUserSelector } from '../../redux/slice/loginUser';
+import { StyledHr } from '../common/styled-components/hr';
+import { Input } from '../common/styled-components/input';
+import { StyledButton } from '../common/styled-components/styledButton';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
 import ShareOptions from './shareOptions';
-import { Input } from '../common/styled-components/input';
-import { StyledHr } from '../common/styled-components/hr';
-import { StyledButton } from '../common/styled-components/styledButton';
-
-import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../redux/slice/loginUser';
 
 export default function ShareCard() {
   const { currentUser } = useSelector(currentUserSelector);
+  const desc = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const file = e.target[0].files[0];
+    const newPost = {
+      userId: currentUser._id,
+      desc: desc?.current?.value,
+    };
+    //console.log(file);
+
+    if (file) {
+      const data = new FormData();
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+      const fileName = uniqueSuffix + '-' + file.name
+      data.append('name', fileName);
+      data.append('file', file);
+      newPost.img = fileName;
+      console.log(data.get('file'))
+      console.log(data.get('name'))
+      try {
+        axios.post('http://localhost:8000/api/post_image', data);
+      } catch (err) {}
+    }
+
+    //creat post
+    try {
+      axios.post('http://localhost:8000/api/post', newPost);
+    } catch (err) {}
+  };
 
   return (
     <Container>
       <TopWrapper>
         <StyledProfilePic height='45px' src={currentUser.profilePicture} />
         <InputWrapper>
-          <Input placeholder='What is in your mind?' />
+          <Input placeholder='What is in your mind?' ref={desc} />
         </InputWrapper>
       </TopWrapper>
       <StyledHr />
-      <DownWrapper>
-        <ShareOptions />
-        <StyledButton bgColor='green' margin='0 50px'>
-          Share
-        </StyledButton>
-      </DownWrapper>
+      <form
+        onSubmit={handleSubmit}
+        encType='multipart/form-data'
+        name='shareForm'
+      >
+        <DownWrapper>
+          <ShareOptions />
+          <StyledButton bgColor='green' margin='0 50px' type='submit'>
+            Share
+          </StyledButton>
+        </DownWrapper>
+      </form>
     </Container>
   );
 }

@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import ProfileBanner from '../profile/profileBanner';
-import Feed from '../feed';
-import RightBar from '../rightbar';
-
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../redux/slice/loginUser';
+import styled from 'styled-components';
+
 import { userPostsSelector } from '../../redux/slice/getUserPosts';
+import { currentUserSelector } from '../../redux/slice/loginUser';
+import Feed from '../feed';
+import ProfileBanner from '../profile/profileBanner';
+import RightBar from '../rightbar';
 
 export default function ProfileBar() {
   const { currentUser } = useSelector(currentUserSelector);
