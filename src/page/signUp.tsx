@@ -209,7 +209,7 @@ export default function SignUp() {
               required: 'Password again is required',
               validate: (v) => v === watchFields[0] || "Passwords don't match",
               minLength: {
-                value: 8,
+                value: 6,
                 message: 'At least 6 characters',
               },
             }}
