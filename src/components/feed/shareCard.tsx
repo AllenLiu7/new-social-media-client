@@ -26,15 +26,17 @@ export default function ShareCard() {
     if (file) {
       const data = new FormData();
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      const fileName = uniqueSuffix + '-' + file.name
+      const fileName = uniqueSuffix + '-' + file.name;
       data.append('name', fileName);
       data.append('file', file);
       newPost.img = fileName;
-      console.log(data.get('file'))
-      console.log(data.get('name'))
+      console.log(data.get('file'));
+      console.log(data.get('name'));
       try {
         axios.post('http://localhost:8000/api/post_image', data);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     //creat post

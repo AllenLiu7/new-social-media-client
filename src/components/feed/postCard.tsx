@@ -52,7 +52,9 @@ export default function PostCard({ post }) {
 
         <PostContent>
           <DescWrap>{desc}</DescWrap>
-          {img ? <StyledImg src={process.env.PUBLIC_FOLDER + img} /> : null}
+          {img ? (
+            <StyledImg src={process.env.PUBLIC_FOLDER + '/post/' + img} />
+          ) : null}
 
           <PostBottomWrap>
             <PostCardLike like={like} handleLikeClick={handleLikeClick} />

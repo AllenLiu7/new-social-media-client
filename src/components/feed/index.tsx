@@ -1,7 +1,8 @@
-import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import ShareCard from './shareCard';
+import styled from 'styled-components';
+
 import PostCard from './postCard';
+import ShareCard from './shareCard';
 
 export default function Feed({ posts }) {
   const postsLoading = useSelector((state) => state.userPosts.loading);
