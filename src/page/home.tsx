@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Feed from '../components/feed';
@@ -11,7 +11,6 @@ import {
   fetchTimelinePosts,
   timelinePostsSelector,
 } from '../redux/slice/getTimelinePosts';
-import { fetchUserPosts } from '../redux/slice/getUserPosts';
 import { currentUserSelector } from '../redux/slice/loginUser';
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchFollowingUsers());
-    dispatch(fetchUserPosts());
     dispatch(fetchTimelinePosts());
   }, []);
 

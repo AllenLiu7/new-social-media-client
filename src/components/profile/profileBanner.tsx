@@ -2,12 +2,11 @@ import styled from 'styled-components';
 
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
 
-
 const PF = process.env.PUBLIC_FOLDER;
 
-export default function ProfileBanner({ currentUser }) {
+export default function ProfileBanner({ user }) {
   //console.log(currentUser);
-  const { username, profilePicture } = currentUser;
+  const { username, profilePicture } = user;
 
   return (
     <Container>

@@ -9,14 +9,14 @@ import { currentUserSelector } from '../../redux/slice/loginUser';
 
 export default function TopBarLink() {
   const { currentUser } = useSelector(currentUserSelector);
-  const username = currentUser.username.toLowerCase();
+  const userId = currentUser._id;
 
   return (
     <>
       <StyledLink to='/app'>
         <HomeIcon />
       </StyledLink>
-      <StyledLink to={`/app/profile/${username}`}>
+      <StyledLink to={`/app/profile/${userId}`}>
         <PeopleAltOutlinedIcon />
       </StyledLink>
       <StyledLink to='/'>

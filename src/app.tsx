@@ -20,7 +20,7 @@ function App() {
         <Route exact path='/' component={Login} />
         <Route path='/signup' component={SignUp} />
         <PrivateRoute exact path='/app' component={Home} />
-        <PrivateRoute exactpath='/app/profile/:username' component={Profile} />
+        <PrivateRoute exact path='/app/profile/:userId' component={Profile} />
       </Switch>
     </Router>
   );
