@@ -1,17 +1,21 @@
-import styled from 'styled-components';
-import ProfileHead from '../common/profilePicName';
-import PostCardLike from './postCardLike';
-import PostCardComment from './postCardComment';
-import { useUserInfo } from '../../Hook/useUserInfo';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import TimeAgo from 'react-timeago';
+import styled from 'styled-components';
+
+import { useUserInfo } from '../../Hook/useUserInfo';
 import { currentUserSelector } from '../../redux/slice/loginUser';
+import ProfileHead from '../common/profilePicName';
+import PostCardComment from './postCardComment';
+import PostCardLike from './postCardLike';
 
 export default function PostCard({ post }) {
   const {
     currentUser: { _id: currentUserId },
   } = useSelector(currentUserSelector);
-  const { userId, img, desc, likes, _id: postId } = post;
+  const { userId, img, desc, likes, _id: postId, createdAt } = post;
+  const date = new Date(createdAt).toDateString();
+
   const {
     user: { profilePicture, username },
   } = useUserInfo(userId);
@@ -47,7 +51,7 @@ export default function PostCard({ post }) {
       <Container>
         <ProfileWrap>
           <ProfileHead src={profilePicture} name={username} />
-          <TimeStamp>1 week ago</TimeStamp>
+          <TimeStamp date={date} />
         </ProfileWrap>
 
         <PostContent>
@@ -101,7 +105,7 @@ const ProfileWrap = styled.div`
   margin: 20px 20px 20px 20px;
 `;
 
-const TimeStamp = styled.div`
+const TimeStamp = styled(TimeAgo)`
   margin-left: 8px;
   font-size: 12px;
 `;
