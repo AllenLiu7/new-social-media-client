@@ -11,12 +11,10 @@ import {
   fetchTimelinePosts,
   timelinePostsSelector,
 } from '../redux/slice/getTimelinePosts';
-import { currentUserSelector } from '../redux/slice/loginUser';
 
 export default function Home() {
   const dispatch = useDispatch();
   const timelinePosts = useSelector(timelinePostsSelector);
-  const { currentUser } = useSelector(currentUserSelector);
 
   useEffect(() => {
     dispatch(fetchFollowingUsers());
@@ -25,10 +23,10 @@ export default function Home() {
 
   return (
     <>
-      <TopBar currentUser={currentUser} />
+      <TopBar />
       <HomeContainer>
         <SideBar />
-        <Feed posts={timelinePosts} />
+        <Feed posts={timelinePosts} isHome isCurrentUser />
         <RightBar />
       </HomeContainer>
     </>

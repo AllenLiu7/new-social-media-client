@@ -13,11 +13,7 @@ export default function RightBarFriendListCard() {
       <Title>Friends</Title>
       <Content>
         {followings.map((user, i) => (
-          <ProfilePicNameBig
-            key={i}
-            name={user.username}
-            src={user.profilePicture}
-          />
+          <ProfilePicNameBig key={i} user={user} />
         ))}
       </Content>
     </CustomCard>

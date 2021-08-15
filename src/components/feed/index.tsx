@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import PostCard from './postCard';
 import ShareCard from './shareCard';
 
-export default function Feed({ posts }) {
+export default function Feed({ posts, isCurrentUser, isHome }) {
   const postsLoading = useSelector((state) => state.userPosts.loading);
 
   return (
     <>
-      <FeedContainer>
-        <ShareCard />
+      <FeedContainer isHome={isHome}>
+        {isCurrentUser ? <ShareCard /> : null}
 
         {postsLoading ? (
           <div>Loading</div>
@@ -24,6 +24,7 @@ export default function Feed({ posts }) {
 
 const FeedContainer = styled.div`
   display: flex;
+  margin-top: ${(props) => (props.isHome ? '40px' : null)};
   flex-direction: column;
   align-items: center;
   flex: 8;

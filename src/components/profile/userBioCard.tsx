@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { Card } from '../common/styled-components/card';
 
 export default function UserBioCard() {
@@ -24,7 +25,7 @@ export default function UserBioCard() {
 }
 
 const CustomCard = styled(Card)`
-  margin: 40px 0;
+  margin: 8px 0 40px 0;
   padding: 20px;
 `;
 

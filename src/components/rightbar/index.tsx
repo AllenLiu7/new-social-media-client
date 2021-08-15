@@ -1,14 +1,15 @@
 import styled from 'styled-components';
+
+import RightBarFriendListCard from '../profile/rightBarFriendListCard';
+import UserBioCard from '../profile/userBioCard';
 import BirthdayCard from './birthdayCard';
 import SponsorsCard from './sponsersCard';
-import UserBioCard from '../profile/userBioCard';
-import RightBarFriendListCard from '../profile/rightBarFriendListCard';
 
 interface Props {
-  profile: boolean;
+  isProfile?: boolean;
 }
 
-export default function RightBar({ profile }: Props) {
+export default function RightBar({ isProfile }: Props) {
   const ProfileRightBar = () => {
     return (
       <RightBarContainer>
@@ -28,7 +29,7 @@ export default function RightBar({ profile }: Props) {
     );
   };
 
-  return profile ? <ProfileRightBar /> : <HomeRightBar />;
+  return isProfile ? <ProfileRightBar /> : <HomeRightBar />;
 }
 
 const RightBarContainer = styled.div`
@@ -40,8 +41,8 @@ const RightBarContainer = styled.div`
   height: calc(100vh - 55px);
   overflow-y: scroll;
   position: sticky;
-  top: 55px; /* required */
-  z-z-index: 998;
+  top: 60px; /* required */
+  z-index: 998;
 
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);

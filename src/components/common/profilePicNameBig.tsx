@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import { StyledProfilePic } from './styled-components/styledProfilePic';
 
 interface Props {
@@ -6,13 +8,20 @@ interface Props {
   src: string;
 }
 
-export default function ProfilePicNameBig({ name, src }: Props) {
+export default function ProfilePicNameBig({ user }: Props) {
+  const { username, profilePicture, _id: userId } = user;
   return (
     <>
-      <ProfileWrapper>
-        <StyledProfilePic src={src} height='80px' borderRadius='10%' />
-        <NameWrapper>{name}</NameWrapper>
-      </ProfileWrapper>
+      <StyledLink to={`/app/profile/${userId}`}>
+        <ProfileWrapper>
+          <StyledProfilePic
+            src={profilePicture}
+            height='80px'
+            borderRadius='10%'
+          />
+          <NameWrapper>{username}</NameWrapper>
+        </ProfileWrapper>
+      </StyledLink>
     </>
   );
 }
@@ -25,12 +34,13 @@ const ProfileWrapper = styled.div`
   cursor: pointer;
 `;
 
-// const CustomProfilePic = styled(StyledProfilePic)`
-//   border-radius: 10%;
-//   height: 80px;
-// `;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 
 const NameWrapper = styled.span`
   margin-top: 2px;
   margin-left: 10px;
+  text-decoration: none;
 `;

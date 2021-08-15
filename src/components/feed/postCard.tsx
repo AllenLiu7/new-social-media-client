@@ -56,9 +56,11 @@ export default function PostCard({ post }) {
 
         <PostContent>
           <DescWrap>{desc}</DescWrap>
-          {img ? (
-            <StyledImg src={process.env.PUBLIC_FOLDER + '/post/' + img} />
-          ) : null}
+          <ImgWrapper>
+            {img ? (
+              <StyledImg src={process.env.PUBLIC_FOLDER + '/post/' + img} />
+            ) : null}
+          </ImgWrapper>
 
           <PostBottomWrap>
             <PostCardLike like={like} handleLikeClick={handleLikeClick} />
@@ -75,7 +77,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   //padding: 20px 30px;
-  margin: 10px 30px;
+  margin: 0px 30px 30px 30px;
   width: 85%;
   height: auto;
   background-color: white;
@@ -89,7 +91,7 @@ const PostContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  //width: 100%;
+  width: 100%;
 `;
 
 const PostBottomWrap = styled.div`
@@ -114,13 +116,26 @@ const DescWrap = styled.div`
   margin: 0px 20px 20px 20px;
 `;
 
-const StyledImg = styled.img.attrs((props) => ({
-  src: props.src,
-  alt: 'postPic',
-}))`
+// const StyledImg = styled.img.attrs((props) => ({
+//   src: props.src,
+//   alt: 'postPic',
+// }))`
+//   width: 100%;
+//   align-self: center;
+//   max-height: 800px;
+//   object-fit: contain;
+//   margin-bottom: 20px;
+// `;
+
+const StyledImg = styled.img`
   width: 100%;
-  align-self: center;
-  max-height: 800px;
+  max-height: 700px;
   object-fit: contain;
   margin-bottom: 20px;
+`;
+
+const ImgWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `;

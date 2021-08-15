@@ -22,6 +22,7 @@ export default function ProfileBanner({ user }) {
 
 const Container = styled.div`
   width: 100%;
+  margin-bottom: 40px;
   display: flex;
   align-items: center;
   flex-direction: column;

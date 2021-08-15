@@ -12,25 +12,28 @@ import RightBar from '../rightbar';
 
 export default function ProfileBar() {
   const [user, setUser] = useState({});
-  const { userId } = useParams();
-  console.log(userId);
+  const [isCurrentUser, setIsCurrentUser] = useState(true);
+
+  const { userId: paramUserId } = useParams();
   const { currentUser } = useSelector(currentUserSelector);
   const timelinePosts = useSelector(timelinePostsSelector);
-  //const user = currentUser;
-  const posts = timelinePosts.filter((post) => post.userId === currentUser._id);
+
+  const posts = timelinePosts.filter((post) => post.userId === paramUserId);
 
   useEffect(() => {
     const defineUser = async () => {
-      if (currentUser._id !== userId) {
-        const response = await _getUser(userId);
+      if (currentUser._id !== paramUserId) {
+        const response = await _getUser(paramUserId);
         const user = response.data;
+        setIsCurrentUser(false);
         return setUser(user);
       }
       const user = currentUser;
+      setIsCurrentUser(true);
       setUser(user);
     };
     defineUser();
-  }, [currentUser, userId]);
+  }, [currentUser, paramUserId]);
 
   //console.log(user);
   // console.log(currentUser);
@@ -39,8 +42,8 @@ export default function ProfileBar() {
     <Container>
       <ProfileBanner user={user} />
       <Content>
-        <Feed posts={posts} />
-        <RightBar profile />
+        <Feed posts={posts} isCurrentUser={isCurrentUser} />
+        <RightBar isProfile />
       </Content>
     </Container>
   );
