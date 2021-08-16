@@ -48,6 +48,14 @@ const { reducer, actions } = createSlice({
     logoutUser(state) {
       state.currentUser = null;
     },
+    follow(state, { payload }) {
+      state.currentUser.followings.push(payload);
+    },
+    unfollow(state, { payload }) {
+      state.currentUser.followings = state.currentUser.followings.filter(
+        (userId) => userId !== payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
@@ -84,7 +92,7 @@ const { reducer, actions } = createSlice({
 export default reducer;
 
 //action
-export const { clearState, logoutUser } = actions;
+export const { clearState, logoutUser, follow, unfollow } = actions;
 
 //selector
 export const currentUserSelector = (state) => state.currentUser;
