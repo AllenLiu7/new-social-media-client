@@ -10,5 +10,5 @@ export const StyledHr = styled.hr<Props>`
   height: 0.8px;
   border: 0;
   border-top: 3px solid #ccc;
-  margin: 30px 0px;
+  margin: 0 0 30px 0;
 `;

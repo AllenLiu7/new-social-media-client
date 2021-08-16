@@ -25,7 +25,8 @@ export default function UserBioCard() {
 }
 
 const CustomCard = styled(Card)`
-  margin: 8px 0 40px 0;
+  margin: 7px 0 40px 0;
+
   padding: 20px;
 `;
 

@@ -1,9 +1,10 @@
-import styled from 'styled-components';
 import { useState } from 'react';
-import SideBarLinkList from './sideBarLinkList';
-import SideBarFriendList from './sideBarFriendList';
-import { StyledButton } from '../common/styled-components/styledButton';
+import styled from 'styled-components';
+
 import { StyledHr } from '../common/styled-components/hr';
+import { StyledButton } from '../common/styled-components/styledButton';
+import SideBarFriendList from './sideBarFriendList';
+import SideBarLinkList from './sideBarLinkList';
 
 export default function SideBar() {
   const [show, setShow] = useState(true);
@@ -15,9 +16,9 @@ export default function SideBar() {
     <>
       <SideBarContainer>
         <SideBarLinkList show={show} />
-        <ButtonWrapper onClick={() => handdleShowMore()}>
-          <StyledButton color='black'>Show more</StyledButton>
-        </ButtonWrapper>
+
+        <StyledButton onClick={() => handdleShowMore()}>Show more</StyledButton>
+
         <StyledHr width='90%' />
         <SideBarFriendList />
       </SideBarContainer>
@@ -49,8 +50,4 @@ const SideBarContainer = styled.div`
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #c4c2c2;
   }
-`;
-
-const ButtonWrapper = styled.div`
-  margin: 30px 0;
 `;

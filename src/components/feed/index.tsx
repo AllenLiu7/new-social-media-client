@@ -4,7 +4,13 @@ import styled from 'styled-components';
 import PostCard from './postCard';
 import ShareCard from './shareCard';
 
-export default function Feed({ posts, isCurrentUser, isHome }) {
+interface Props {
+  posts: [];
+  isCurrentUser?: boolean;
+  isHome?: boolean;
+}
+
+export default function Feed({ posts, isCurrentUser, isHome }: Props) {
   const postsLoading = useSelector((state) => state.userPosts.loading);
 
   return (
