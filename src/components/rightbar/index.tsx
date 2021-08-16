@@ -1,7 +1,13 @@
+import AddIcon from '@material-ui/icons/Add';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { _followUser, _unfollowUser } from '../../service/api/user';
+import { StyledButton } from '../common/styled-components/styledButton';
 import RightBarFriendListCard from '../profile/rightBarFriendListCard';
 import UserBioCard from '../profile/userBioCard';
+import ProfileRightBar from '../rightbar/profileRightBar';
 import BirthdayCard from './birthdayCard';
 import SponsorsCard from './sponsersCard';
 
@@ -10,16 +16,6 @@ interface Props {
 }
 
 export default function RightBar({ isProfile }: Props) {
-  const ProfileRightBar = () => {
-    return (
-      <RightBarContainer>
-        <UserBioCard />
-        <RightBarFriendListCard />
-        <SponsorsCard />
-      </RightBarContainer>
-    );
-  };
-
   const HomeRightBar = () => {
     return (
       <RightBarContainer>
