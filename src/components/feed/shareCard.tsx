@@ -75,7 +75,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 20px 30px;
-  margin: 8px 30px 40px 30px;
+  margin: 0px 30px 40px 30px;
   width: 85%;
   height: 150px;
   background-color: white;

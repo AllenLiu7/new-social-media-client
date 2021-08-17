@@ -33,6 +33,7 @@ const FeedContainer = styled.div`
   margin-top: ${(props) => (props.isHome ? '40px' : null)};
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
   flex: 8;
   height: auto;
 `;

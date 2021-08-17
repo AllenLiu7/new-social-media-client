@@ -15,6 +15,10 @@ const GlobalStyle = createGlobalStyle`
     background-color: #f5f5f5;
   }
 
+  a, u {
+    text-decoration: none;
+}
+
   &::-webkit-scrollbar {
     width: 7px;
     background-color: #f5f5f5;
