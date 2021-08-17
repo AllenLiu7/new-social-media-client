@@ -11,7 +11,7 @@ import ProfileBanner from '../profile/profileBanner';
 import RightBar from '../rightbar';
 
 export default function ProfileBar() {
-  const [isEdit, setEdit] = useState<boolean | null>(false);
+  const [isEdit, setEdit] = useState<boolean | null>(true);
   const { currentUser } = useSelector(currentUserSelector);
   const { user, isCurrentUser, paramId } = useDefineUser(currentUser);
   const timelinePosts = useSelector(timelinePostsSelector);
