@@ -16,7 +16,12 @@ import RightBarFriendListCard from '../profile/rightBarFriendListCard';
 import UserBioCard from '../profile/userBioCard';
 import SponsorsCard from './sponsersCard';
 
-export default function ProfileRightBar() {
+interface Props {
+  editHandler: () => void;
+  isEdit: boolean;
+}
+
+export default function ProfileRightBar({ editHandler, isEdit }: Props) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(currentUserSelector);
   const { isCurrentUser, paramId } = useDefineUser(currentUser);
@@ -45,7 +50,11 @@ export default function ProfileRightBar() {
 
   return (
     <RightBarContainer>
-      {isCurrentUser ? null : (
+      {isCurrentUser ? (
+        <StyledButton onClick={editHandler}>
+          {isEdit ? 'Cancel Edit' : 'Edit Profile'}
+        </StyledButton>
+      ) : (
         <StyledButton onClick={handleClick}>
           {isFollowed ? 'Unfollow' : 'Follow'}
           {isFollowed ? <RemoveCircleOutlineIcon /> : <AddIcon />}
@@ -64,6 +73,7 @@ const RightBarContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding-left: 5px;
+  padding-top: 10px;
   height: calc(100vh - 55px);
   overflow-y: scroll;
   position: sticky;
