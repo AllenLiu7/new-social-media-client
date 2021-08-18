@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-export const Card = styled.div`
+type Props = {
+  alignItems?: string;
+};
+
+export const Card = styled.div<Props>`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: ${(props) => props.alignItems || 'flex-start'};
   padding: 0 0 0 0;
   margin: 0 0 0 0;
   width: 85%;

@@ -2,37 +2,44 @@ import {
   Box,
   Button,
   FormControl,
-  IconButton,
-  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from '@material-ui/core';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { currentUserSelector } from '../../redux/slice/loginUser';
 import { Card } from '../common/styled-components/card';
+import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
+const PF = process.env.PUBLIC_FOLDER;
 
 export default function EditBar() {
   const { currentUser } = useSelector(currentUserSelector);
-  const { username, email, city } = currentUser;
-  const { control, handleSubmit } = useForm();
+  const { username, email, city, profilePicture } = currentUser;
+  const { control, handleSubmit, register } = useForm();
+  const [file, setFile] = useState(PF + profilePicture);
+
+  const handleProfilePicChange = (event) => {
+    setFile(URL.createObjectURL(event.target.files[0]));
+  };
 
   const onSubmit = (data) => {
     console.log(data);
   };
   return (
     <Container>
-      <Card>
+      <Card alignItems='center'>
         <FormWrapper>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Typography variant='h4' gutterBottom>
               User Info
             </Typography>
+            {/* username --------------------------------------------------------------------------------------------*/}
             <Controller
               name='username'
               control={control}
@@ -159,6 +166,24 @@ export default function EditBar() {
                 </FormControl>
               )}
             />
+            <ProfilePicFormWrapper>
+              <Typography variant='h7' gutterBottom>
+                Profile Picture
+              </Typography>
+              <ProfilePicWrapper>
+                <EditImg src={file} alt='profile' height='100px' />
+                <ButtonWrapper>
+                  <EditButton>Edit</EditButton>
+                  <input
+                    {...register('image')}
+                    style={{ display: 'none' }}
+                    type='file'
+                    accept='.png,.jpeg,.jpg'
+                    onChange={handleProfilePicChange}
+                  />
+                </ButtonWrapper>
+              </ProfilePicWrapper>
+            </ProfilePicFormWrapper>
             <Box mt={2}>
               <Button
                 type='submit'
@@ -179,6 +204,7 @@ export default function EditBar() {
 const Container = styled.div`
   flex: 8;
   display: flex;
+  height: auto;
   justify-content: center;
   padding-top: 10px;
 `;
@@ -186,4 +212,35 @@ const Container = styled.div`
 const FormWrapper = styled.div`
   padding: 40px 50px;
   width: 70%;
+  height: auto;
+`;
+
+const ProfilePicFormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
+const ProfilePicWrapper = styled.div`
+  position: relative;
+  width: auto;
+  margin-top: 20px;
+  align-self: center;
+`;
+
+const ButtonWrapper = styled.label`
+  position: absolute;
+  top: 0;
+  left: 100px;
+`;
+
+const EditButton = styled.div`
+  cursor: pointer;
+`;
+
+const EditImg = styled.img`
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
