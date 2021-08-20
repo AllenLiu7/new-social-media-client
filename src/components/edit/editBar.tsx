@@ -23,19 +23,30 @@ export default function EditBar() {
   const { username, email, city, profilePicture } = currentUser;
   const { control, handleSubmit, register } = useForm();
   const [file, setFile] = useState(PF + profilePicture);
+  const image = register('image', { required: true }); // for react hook form overide bug
 
   const handleProfilePicChange = (event) => {
     setFile(URL.createObjectURL(event.target.files[0]));
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const file = data.image[0];
+    //create formData to include the file
+    const formData = new FormData();
+    formData.append('image', file);
+    //execute axios with the formData
     console.log(data);
+    console.log(file);
   };
   return (
     <Container>
       <Card alignItems='center'>
         <FormWrapper>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            name='editForm'
+            encType='multipart/form-data'
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <Typography variant='h4' gutterBottom>
               User Info
             </Typography>
@@ -179,7 +190,10 @@ export default function EditBar() {
                     style={{ display: 'none' }}
                     type='file'
                     accept='.png,.jpeg,.jpg'
-                    onChange={handleProfilePicChange}
+                    onChange={(e) => {
+                      image.onChange(e); // method from hook form register
+                      handleProfilePicChange(e); // your method, this will prevent your method overwrites hook form's
+                    }}
                   />
                 </ButtonWrapper>
               </ProfilePicWrapper>
