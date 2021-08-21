@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import { fetchTimelinePosts } from '../../redux/slice/getTimelinePosts';
 import { currentUserSelector } from '../../redux/slice/loginUser';
 import { StyledHr } from '../common/styled-components/hr';
 import { Input } from '../common/styled-components/input';
@@ -12,28 +13,34 @@ import ShareOptions from './shareOptions';
 
 export default function ShareCard() {
   const { currentUser } = useSelector(currentUserSelector);
+  const dispatch = useDispatch();
   const desc = useRef(null);
 
-  const handleSubmit = (e) => {
+  const [isAttatch, setIsAttatch] = useState(false);
+
+  const handleUploadChange = () => {
+    setIsAttatch(true);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const file = e.target[0].files[0];
     const newPost = {
       userId: currentUser._id,
       desc: desc?.current?.value,
     };
-    //console.log(file);
 
     if (file) {
       const data = new FormData();
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      const fileName = uniqueSuffix + '-' + file.name;
-      data.append('name', fileName);
-      data.append('file', file);
-      newPost.img = fileName;
-      console.log(data.get('file'));
-      console.log(data.get('name'));
+      data.append('post-image', file);
+
       try {
-        axios.post('http://localhost:8000/api/post_image', data);
+        const response = await axios.post(
+          'http://localhost:8000/api/post_image',
+          data
+        );
+        console.log(response.data.fileName);
+        newPost.img = response.data.fileName;
       } catch (err) {
         console.log(err);
       }
@@ -41,7 +48,8 @@ export default function ShareCard() {
 
     //creat post
     try {
-      axios.post('http://localhost:8000/api/post', newPost);
+      await axios.post('http://localhost:8000/api/post', newPost);
+      dispatch(fetchTimelinePosts());
     } catch (err) {}
   };
 
@@ -60,7 +68,10 @@ export default function ShareCard() {
         name='shareForm'
       >
         <DownWrapper>
-          <ShareOptions />
+          <ShareOptions
+            isAttatch={isAttatch}
+            handleChange={handleUploadChange}
+          />
           <StyledButton bgColor='green' margin='0 50px' type='submit'>
             Share
           </StyledButton>

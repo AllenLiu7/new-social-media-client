@@ -1,5 +1,6 @@
 import { blue, green, red, yellow } from '@material-ui/core/colors';
 import {
+  AttachFile,
   EmojiEmotions,
   Label,
   LocationOn,
@@ -7,7 +8,7 @@ import {
 } from '@material-ui/icons';
 import styled from 'styled-components';
 
-export default function ShareOptions() {
+export default function ShareOptions({ isAttatch, handleChange }) {
   return (
     <>
       <Container>
@@ -15,11 +16,14 @@ export default function ShareOptions() {
           <InputLabel>
             <PhotoCamera style={{ color: red[500] }} />
             <InputSpan>Photo or Video</InputSpan>
+            {isAttatch && <AttachFile />}
+
             <input
               name='image'
               style={{ display: 'none' }}
               type='file'
               accept='.png,.jpeg,.jpg'
+              onChange={handleChange}
             />
           </InputLabel>
         </IconWrapper>
@@ -51,7 +55,7 @@ const IconWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 30px;
 `;
 
 const Link = styled.div`
