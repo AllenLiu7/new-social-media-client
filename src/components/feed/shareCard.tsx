@@ -36,7 +36,7 @@ export default function ShareCard() {
 
       try {
         const response = await axios.post(
-          'http://localhost:8000/api/post_image',
+          'http://localhost:8000/api/upload/post_image',
           data
         );
         console.log(response.data.fileName);
@@ -56,7 +56,11 @@ export default function ShareCard() {
   return (
     <Container>
       <TopWrapper>
-        <StyledProfilePic height='45px' src={currentUser.profilePicture} />
+        <StyledProfilePic
+          height='45px'
+          width='45px'
+          src={currentUser.profilePicture}
+        />
         <InputWrapper>
           <Input placeholder='What is in your mind?' ref={desc} />
         </InputWrapper>
@@ -99,7 +103,8 @@ const Container = styled.div`
 const TopWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  width: 100%;
 `;
 
 const DownWrapper = styled.div`
