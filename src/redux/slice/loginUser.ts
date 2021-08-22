@@ -48,6 +48,9 @@ const { reducer, actions } = createSlice({
     logoutUser(state) {
       state.currentUser = null;
     },
+    updateUser(state, { payload }) {
+      state.currentUser = payload;
+    },
     follow(state, { payload }) {
       state.currentUser.followings.push(payload);
     },
@@ -92,7 +95,7 @@ const { reducer, actions } = createSlice({
 export default reducer;
 
 //action
-export const { clearState, logoutUser, follow, unfollow } = actions;
+export const { clearState, logoutUser, follow, unfollow, updateUser } = actions;
 
 //selector
 export const currentUserSelector = (state) => state.currentUser;
