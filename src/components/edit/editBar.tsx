@@ -8,22 +8,24 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import axios from 'axios';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { currentUserSelector } from '../../redux/slice/loginUser';
 import { Card } from '../common/styled-components/card';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
-const PF = process.env.PUBLIC_FOLDER;
+const PF = process.env.PROFILE_PIC;
 
 export default function EditBar() {
+  const dispatch = useDispatch();
   const { currentUser } = useSelector(currentUserSelector);
   const { username, email, city, profilePicture } = currentUser;
   const { control, handleSubmit, register } = useForm();
   const [file, setFile] = useState(PF + profilePicture);
-  const image = register('image', { required: true }); // for react hook form overide bug
+  const image = register('image'); // for react hook form overide bug
 
   const handleProfilePicChange = (event) => {
     setFile(URL.createObjectURL(event.target.files[0]));
@@ -31,13 +33,42 @@ export default function EditBar() {
 
   const onSubmit = async (data) => {
     const file = data.image[0];
-    //create formData to include the file
-    const formData = new FormData();
-    formData.append('image', file);
+    const newData = {
+      id: currentUser._id,
+      profile: {
+        ...data,
+      },
+    };
+    console.log(currentUser.profilePicture);
+    //create formData to include the file and the current profile pic filename
+    if (file) {
+      const formData = new FormData();
+      formData.append('profile-pic', file);
+      formData.append('currentProfilePic', currentUser.profilePicture);
+      try {
+        const response = await axios.post(
+          'http://localhost:8000/api/upload/profile_pic',
+          formData
+        );
+        console.log(response.data);
+        newData.profile.profilePicture = response.data.fileName;
+      } catch (err) {
+        console.log(err);
+      }
+    }
     //execute axios with the formData
-    console.log(data);
-    console.log(file);
+    try {
+      const response = await axios.put(
+        'http://localhost:8000/api/user/edit_profile',
+        newData
+      );
+      console.log(response.data);
+      //dispatch(fetchTimelinePosts());
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
     <Container>
       <Card alignItems='center'>
