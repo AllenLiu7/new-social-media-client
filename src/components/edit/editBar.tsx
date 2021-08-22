@@ -14,7 +14,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { currentUserSelector } from '../../redux/slice/loginUser';
+import { currentUserSelector, updateUser } from '../../redux/slice/loginUser';
 import { Card } from '../common/styled-components/card';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
 const PF = process.env.PROFILE_PIC;
@@ -63,7 +63,7 @@ export default function EditBar() {
         newData
       );
       console.log(response.data);
-      //dispatch(fetchTimelinePosts());
+      dispatch(updateUser(response.data));
     } catch (err) {
       console.log(err);
     }
