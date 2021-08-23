@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const initialState = {
   loading: false,
@@ -12,7 +12,13 @@ export const fetchFollowingUsers = createAsyncThunk(
   async () => {
     try {
       const response = await fetch(
-        'http://localhost:8000/api/user/60ed4aa170b49b2b843f43d6/followings'
+        'http://localhost:8000/api/user/60ed4aa170b49b2b843f43d6/followings',
+        {
+          method: 'get', // or 'PUT'
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
       );
       const data = await response.json();
       return data;
