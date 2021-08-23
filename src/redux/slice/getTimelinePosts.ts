@@ -9,10 +9,10 @@ export const initialState = {
 //Async Thunk Action
 export const fetchTimelinePosts = createAsyncThunk(
   'timelinePosts/fetchTimelinePosts', //name of your slice plus the name of thunk creator
-  async () => {
+  async (id: string) => {
     try {
       const response = await fetch(
-        'http://localhost:8000/api/post/timeline/60ed4aa170b49b2b843f43d6'
+        `http://localhost:8000/api/post/timeline/${id}`
       );
       const data = await response.json();
       return data;

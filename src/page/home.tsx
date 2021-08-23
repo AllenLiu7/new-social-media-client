@@ -11,14 +11,16 @@ import {
   fetchTimelinePosts,
   timelinePostsSelector,
 } from '../redux/slice/getTimelinePosts';
+import { currentUserSelector } from '../redux/slice/loginUser';
 
 export default function Home() {
   const dispatch = useDispatch();
   const timelinePosts = useSelector(timelinePostsSelector);
+  const { currentUser: _id } = useSelector(currentUserSelector);
 
   useEffect(() => {
     dispatch(fetchFollowingUsers());
-    dispatch(fetchTimelinePosts());
+    dispatch(fetchTimelinePosts(_id));
   }, []);
 
   return (
