@@ -16,7 +16,6 @@ import styled from 'styled-components';
 
 import { currentUserSelector, updateUser } from '../../redux/slice/loginUser';
 import { Card } from '../common/styled-components/card';
-import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
 const PF = process.env.PROFILE_PIC;
 
 export default function EditBar() {

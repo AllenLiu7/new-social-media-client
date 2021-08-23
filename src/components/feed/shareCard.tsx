@@ -49,7 +49,7 @@ export default function ShareCard() {
     //creat post
     try {
       await axios.post('http://localhost:8000/api/post', newPost);
-      dispatch(fetchTimelinePosts());
+      dispatch(fetchTimelinePosts(currentUser._id));
     } catch (err) {}
   };
 
