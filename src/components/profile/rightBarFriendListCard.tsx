@@ -7,7 +7,7 @@ import { Card } from '../common/styled-components/card';
 
 export default function RightBarFriendListCard() {
   const followings = useSelector(followingUsersSelector);
-  //console.log(followings);
+
   return (
     <CustomCard>
       <Title>Friends</Title>
