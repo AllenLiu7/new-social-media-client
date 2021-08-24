@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+//fetch user info base on userId
+
 export const useUserInfo = (userId: string) => {
   const [user, setUser] = useState({});
 

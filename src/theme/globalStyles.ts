@@ -5,19 +5,22 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    overflow-y: scroll; 
     input:focus, textarea:focus, select:focus{
         outline: none;
     }
 
-    &::-webkit-scrollbar-track {
+    a, u {
+      text-decoration: none;
+    }
+   
+  /* &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     background-color: #f5f5f5;
+    z-index: 999;
   }
 
-  a, u {
-    text-decoration: none;
-}
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -28,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #c4c2c2;
+  } */
   }
 `;
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { StyledProfilePic } from './styled-components/styledProfilePic';
 
 interface Props {
