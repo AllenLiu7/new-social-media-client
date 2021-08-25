@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import TimeAgo from 'react-timeago';
 import styled from 'styled-components';
 
 import { useUserInfo } from '../../Hook/useUserInfo';
 import { currentUserSelector } from '../../redux/slice/loginUser';
+import PostMenu from '../common/postMenu';
 import ProfileHead from '../common/profilePicName';
 import PostCardComment from './postCardComment';
 import PostCardLike from './postCardLike';
@@ -18,10 +19,15 @@ export default function PostCard({ post }) {
 
   const {
     user: { profilePicture, username },
-  } = useUserInfo(userId);
+  } = useUserInfo(userId); //fetch post creator info
 
   const [isLiked, setIsLiked] = useState(likes.includes(currentUserId));
   const [like, setLike] = useState(likes.length);
+  const [isOwner, setIsOwner] = useState(false);
+
+  useEffect(() => {
+    if (currentUserId === userId) return setIsOwner(true);
+  }, [currentUserId, userId]);
 
   const handleLikeClick = () => {
     const updateLike = async (postId: string, currentUserId: string) => {
@@ -49,10 +55,13 @@ export default function PostCard({ post }) {
   return (
     <>
       <Container>
-        <ProfileWrap>
-          <ProfileHead src={profilePicture} name={username} />
-          <TimeStamp date={date} />
-        </ProfileWrap>
+        <PostHeader>
+          <ProfileWrap>
+            <ProfileHead src={profilePicture} name={username} />
+            <TimeStamp date={date} />
+          </ProfileWrap>
+          <PostMenu isOwner={isOwner} postId={postId} />
+        </PostHeader>
 
         <PostContent>
           <DescWrap>{desc}</DescWrap>
@@ -85,6 +94,13 @@ const Container = styled.div`
 
   -webkit-box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.29);
   box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.29);
+`;
+
+const PostHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const PostContent = styled.div`
