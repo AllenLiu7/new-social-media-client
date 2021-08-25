@@ -7,6 +7,7 @@ import RightBar from '../components/rightbar';
 import SideBar from '../components/sidebar';
 import TopBar from '../components/topbar';
 import { fetchFollowingUsers } from '../redux/slice/getFollowingUsers';
+import { fetchRecommandUsers } from '../redux/slice/getRecommandUsers';
 import {
   fetchTimelinePosts,
   timelinePostsSelector,
@@ -21,6 +22,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(fetchFollowingUsers());
     dispatch(fetchTimelinePosts(currentUser._id));
+    dispatch(fetchRecommandUsers(currentUser._id));
   }, []);
 
   return (
