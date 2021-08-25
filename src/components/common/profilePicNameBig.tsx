@@ -12,7 +12,7 @@ export default function ProfilePicNameBig({ user }: Props) {
   const { username, profilePicture, _id: userId } = user;
   return (
     <>
-      <StyledLink to={`/app/profile/${userId}`}>
+      <Link to={`/app/profile/${userId}`}>
         <ProfileWrapper>
           <StyledProfilePic
             src={profilePicture}
@@ -23,7 +23,7 @@ export default function ProfilePicNameBig({ user }: Props) {
           />
           <NameWrapper>{username}</NameWrapper>
         </ProfileWrapper>
-      </StyledLink>
+      </Link>
     </>
   );
 }
@@ -34,11 +34,6 @@ const ProfileWrapper = styled.div`
   align-items: center;
 
   cursor: pointer;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
 `;
 
 const NameWrapper = styled.span`
