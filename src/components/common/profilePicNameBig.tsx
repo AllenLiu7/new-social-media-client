@@ -17,7 +17,9 @@ export default function ProfilePicNameBig({ user }: Props) {
           <StyledProfilePic
             src={profilePicture}
             height='80px'
+            width='80px'
             borderRadius='10%'
+            userId={userId}
           />
           <NameWrapper>{username}</NameWrapper>
         </ProfileWrapper>
@@ -40,7 +42,7 @@ const StyledLink = styled(Link)`
 `;
 
 const NameWrapper = styled.span`
-  margin-top: 2px;
+  margin-top: 5px;
   margin-left: 10px;
   text-decoration: none;
 `;
