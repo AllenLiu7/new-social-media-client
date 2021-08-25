@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
 
     a, u {
       text-decoration: none;
+      color: black;
     }
    
   /* &::-webkit-scrollbar-track {
