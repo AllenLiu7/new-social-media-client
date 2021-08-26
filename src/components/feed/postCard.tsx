@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { useUserInfo } from '../../Hook/useUserInfo';
 import { currentUserSelector } from '../../redux/slice/loginUser';
+import { updateLikeReq } from '../../service/api/post';
 import PostMenu from '../common/postMenu';
 import ProfileHead from '../common/profilePicName';
 import PostCardComment from './postCardComment';
@@ -32,16 +33,7 @@ export default function PostCard({ post }) {
   const handleLikeClick = () => {
     const updateLike = async (postId: string, currentUserId: string) => {
       try {
-        await fetch(`http://localhost:8000/api/post/${postId}/like`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: currentUserId,
-          }),
-        });
-        console.log('updateLike');
+        await updateLikeReq(postId, currentUserId);
       } catch (err) {
         console.log(err);
       }
