@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 
 import { _getUser } from '../service/api/user';
 
+//set the user according to the comparison of the currentUser._id with the id in the params.
+
 export const useDefineUser = (currentUser) => {
   const [user, setUser] = useState({});
   const [isCurrentUser, setIsCurrentUser] = useState(true);
@@ -17,6 +19,7 @@ export const useDefineUser = (currentUser) => {
         setIsCurrentUser(false);
         return setUser(user);
       }
+      //if currentUser._id === paramId, we are at the currentUser's profile page
       const user = currentUser;
       setIsCurrentUser(true);
       setUser(user);

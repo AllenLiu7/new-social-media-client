@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+import { follow, unfollow } from './loginUser';
+
 export const initialState = {
   loading: false,
   hasErrors: false,

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { useDefineUser } from '../../Hook/useDefineUser';
+import { fetchFollowingUsers } from '../../redux/slice/getFollowingUsers';
 import { fetchTimelinePosts } from '../../redux/slice/getTimelinePosts';
 import {
   currentUserSelector,
@@ -41,11 +42,13 @@ export default function ProfileRightBar({ editHandler, isEdit }: Props) {
       await _unfollowUser(currentUser._id, paramId);
       dispatch(unfollow(paramId));
       dispatch(fetchTimelinePosts(currentUser._id));
+      dispatch(fetchFollowingUsers());
       return setIsFollowed(false);
     }
     await _followUser(currentUser._id, paramId);
     dispatch(follow(paramId));
     dispatch(fetchTimelinePosts(currentUser._id));
+    dispatch(fetchFollowingUsers());
     return setIsFollowed(true);
   };
 
