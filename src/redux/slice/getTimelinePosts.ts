@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+import { deletePostsReq, getTimelinePostsReq } from '../../service/api/post';
+
 export const initialState = {
   loading: false,
   hasErrors: false,
@@ -12,11 +14,8 @@ export const fetchTimelinePosts = createAsyncThunk(
   'timelinePosts/fetchTimelinePosts', //name of your slice plus the name of thunk creator
   async (id: string) => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/post/timeline/${id}`
-      );
-      const data = await response.json();
-      return data;
+      const response = await getTimelinePostsReq(id);
+      return response.data;
     } catch (error) {
       throw Error(`${error}`);
     }
@@ -28,9 +27,7 @@ export const deletePost = createAsyncThunk(
   'timelinePosts/deletePost', //name of your slice plus the name of thunk creator
   async (id: string) => {
     try {
-      await fetch(`http://localhost:8000/api/post/${id}/delete`, {
-        method: 'DELETE',
-      });
+      await deletePostsReq(id);
       return id;
     } catch (error) {
       throw Error(`${error}`);
