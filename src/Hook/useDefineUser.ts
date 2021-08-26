@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 
-import { _getUser } from '../service/api/user';
+import { getUserReq } from '../service/api/user';
 
 //set the user according to the comparison of the currentUser._id with the id in the params.
 
@@ -14,7 +14,7 @@ export const useDefineUser = (currentUser) => {
   useEffect(() => {
     const defineUser = async () => {
       if (currentUser._id !== paramId) {
-        const response = await _getUser(paramId);
+        const response = await getUserReq(paramId);
         const user = response.data;
         setIsCurrentUser(false);
         return setUser(user);

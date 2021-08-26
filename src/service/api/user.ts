@@ -1,6 +1,6 @@
 import { axiosClient } from './index';
 
-export const _getUser = (id: string) => {
+export const getUserReq = (id: string) => {
   return axiosClient.get(`/user?userId=${id}`);
 };
 

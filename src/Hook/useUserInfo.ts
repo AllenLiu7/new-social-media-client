@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { getUserReq } from '../service/api/user';
+
 //fetch user info base on userId
 
 export const useUserInfo = (userId: string) => {
@@ -7,11 +9,8 @@ export const useUserInfo = (userId: string) => {
 
   useEffect(() => {
     const fetchUser = async (userId: string) => {
-      const response = await fetch(
-        ` http://localhost:8000/api/user?userId=${userId}`
-      );
-      const data = await response.json();
-      setUser(data);
+      const response = await getUserReq(userId);
+      setUser(response.data);
     };
 
     fetchUser(userId);
