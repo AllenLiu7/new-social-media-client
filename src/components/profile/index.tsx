@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -6,6 +5,7 @@ import styled from 'styled-components';
 import { useDefineUser } from '../../Hook/useDefineUser';
 import { timelinePostsSelector } from '../../redux/slice/getTimelinePosts';
 import { currentUserSelector } from '../../redux/slice/loginUser';
+import { getUnfollowedPostsReq } from '../../service/api/post';
 import EditBar from '../edit/editBar';
 import Feed from '../feed';
 import ProfileBanner from '../profile/profileBanner';
@@ -34,10 +34,8 @@ export default function ProfileBar() {
     if (isFollowed) {
       return setPosts(timelinePosts.filter((post) => post.userId === paramId));
     }
-    const fetchUnfollowPosts = async (id) => {
-      const response = await axios.get(
-        `http://localhost:8000/api/post/profile/${id}`
-      );
+    const getUnfollowPosts = async (id) => {
+      const response = await getUnfollowedPostsReq(id);
 
       return setPosts(
         response.data.sort((p1, p2) => {
@@ -45,7 +43,7 @@ export default function ProfileBar() {
         })
       );
     };
-    fetchUnfollowPosts(paramId);
+    getUnfollowPosts(paramId);
   }, [isFollowed, timelinePosts, paramId]);
 
   const handleEditButton = () => {

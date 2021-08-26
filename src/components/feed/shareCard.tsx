@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -32,6 +31,7 @@ export default function ShareCard() {
       desc: desc.current.value,
     };
 
+    //upload image to server and get back the file name
     if (file) {
       const data = new FormData();
       data.append('post-image', file);
