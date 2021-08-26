@@ -4,6 +4,10 @@ export const getUserReq = (id: string) => {
   return axiosClient.get(`/user?userId=${id}`);
 };
 
+export const getFollowingUsersReq = () => {
+  return axiosClient.get('user/60ed4aa170b49b2b843f43d6/followings');
+};
+
 export const _unfollowUser = (currentUserId: string, paramId: string) => {
   return axiosClient.put(`user/${currentUserId}/unfollow`, {
     userId: paramId,
