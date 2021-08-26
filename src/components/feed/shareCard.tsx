@@ -5,6 +5,8 @@ import styled from 'styled-components';
 
 import { fetchTimelinePosts } from '../../redux/slice/getTimelinePosts';
 import { currentUserSelector } from '../../redux/slice/loginUser';
+import { newPostReq } from '../../service/api/post';
+import { uploadPostImageReq } from '../../service/api/upload';
 import { StyledHr } from '../common/styled-components/hr';
 import { Input } from '../common/styled-components/input';
 import { StyledButton } from '../common/styled-components/styledButton';
@@ -27,7 +29,7 @@ export default function ShareCard() {
     const file = e.target[0].files[0];
     const newPost = {
       userId: currentUser._id,
-      desc: desc?.current?.value,
+      desc: desc.current.value,
     };
 
     if (file) {
@@ -35,12 +37,8 @@ export default function ShareCard() {
       data.append('post-image', file);
 
       try {
-        const response = await axios.post(
-          'http://localhost:8000/api/upload/post_image',
-          data
-        );
-        console.log(response.data.fileName);
-        newPost.img = response.data.fileName;
+        const response = await uploadPostImageReq(data);
+        newPost.img = response.data.fileName; //server returns the modified file name
       } catch (err) {
         console.log(err);
       }
@@ -48,7 +46,7 @@ export default function ShareCard() {
 
     //creat post
     try {
-      await axios.post('http://localhost:8000/api/post', newPost);
+      await newPostReq(newPost);
       dispatch(fetchTimelinePosts(currentUser._id));
     } catch (err) {}
   };

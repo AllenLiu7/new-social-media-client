@@ -124,17 +124,6 @@ const DescWrap = styled.div`
   margin: 0px 20px 20px 20px;
 `;
 
-// const StyledImg = styled.img.attrs((props) => ({
-//   src: props.src,
-//   alt: 'postPic',
-// }))`
-//   width: 100%;
-//   align-self: center;
-//   max-height: 800px;
-//   object-fit: contain;
-//   margin-bottom: 20px;
-// `;
-
 const StyledImg = styled.img`
   width: 100%;
   max-height: 700px;
