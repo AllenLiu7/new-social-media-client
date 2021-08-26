@@ -18,7 +18,7 @@ import GoogleButton from '../components/common/googleButton';
 import {
   clearState,
   currentUserSelector,
-  loginUser,
+  loginUserThunk,
 } from '../redux/slice/loginUser';
 
 export default function Login() {
@@ -49,7 +49,7 @@ export default function Login() {
   };
 
   const onSubmit = (data) => {
-    dispatch(loginUser(data));
+    dispatch(loginUserThunk(data));
   };
 
   const useStyles = makeStyles({

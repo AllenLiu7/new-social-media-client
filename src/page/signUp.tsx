@@ -20,7 +20,7 @@ import {
   currentUserSelector,
   signUpUser,
 } from '../redux/slice/loginUser';
-import { _checkUserEmail, _checkUsername } from '../service/api/auth';
+import { checkUserEmailReq, checkUsernameReq } from '../service/api/auth';
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -54,8 +54,8 @@ export default function SignUp() {
 
   const onSubmit = async (data) => {
     const { username, email } = data;
-    const { data: userCheck } = await _checkUsername({ username });
-    const { data: emailCheck } = await _checkUserEmail({ email });
+    const { data: userCheck } = await checkUserEmailReq({ username });
+    const { data: emailCheck } = await checkUsernameReq({ email });
 
     if (userCheck) {
       setError('username', {

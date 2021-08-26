@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { _loginUser, _registerUser } from '../../service/api/auth';
+import { loginUserReq, registerUserReq } from '../../service/api/auth';
 
 export const initialState = {
   isLoading: false,
@@ -10,11 +10,11 @@ export const initialState = {
   currentUser: null,
 };
 
-export const loginUser = createAsyncThunk(
+export const loginUserThunk = createAsyncThunk(
   'user/loginUser',
   async (formValue, thunkAPI) => {
     try {
-      const response = await _loginUser(formValue);
+      const response = await loginUserReq(formValue);
 
       return response.data;
     } catch (error) {
@@ -27,7 +27,7 @@ export const signUpUser = createAsyncThunk(
   'user/signUpUser',
   async (formValue, thunkAPI) => {
     try {
-      const response = await _registerUser(formValue);
+      const response = await registerUserReq(formValue);
 
       return response.data;
     } catch (error) {
@@ -61,15 +61,15 @@ const { reducer, actions } = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+    builder.addCase(loginUserThunk.fulfilled, (state, { payload }) => {
       state.currentUser = payload;
       state.isLoading = false;
       state.isSuccess = true;
     });
-    builder.addCase(loginUser.pending, (state) => {
+    builder.addCase(loginUserThunk.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(loginUser.rejected, (state, { payload }) => {
+    builder.addCase(loginUserThunk.rejected, (state, { payload }) => {
       //console.log(payload);
       state.isLoading = false;
       state.isError = true;
