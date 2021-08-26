@@ -1,17 +1,17 @@
 import { axiosClient } from './index';
 
-export const _loginUser = (data) => {
+export const loginUserReq = (data) => {
   return axiosClient.post('/auth/login', JSON.stringify(data));
 };
 
-export const _registerUser = (data) => {
+export const registerUserReq = (data) => {
   return axiosClient.post('/auth/register', JSON.stringify(data));
 };
 
-export const _checkUsername = (data) => {
+export const checkUsernameReq = (data) => {
   return axiosClient.post('/auth/checkname', JSON.stringify(data));
 };
 
-export const _checkUserEmail = (data) => {
+export const checkUserEmailReq = (data) => {
   return axiosClient.post('/auth/checkemail', JSON.stringify(data));
 };
