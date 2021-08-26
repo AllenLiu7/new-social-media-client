@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { getRecommandUsersReq } from '../../service/api/user';
-import { follow, unfollow } from './loginUser';
+import { follow } from './loginUser';
 
 export const initialState = {
   loading: false,
