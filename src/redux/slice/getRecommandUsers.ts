@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
+import { getRecommandUsersReq } from '../../service/api/user';
 import { follow, unfollow } from './loginUser';
 
 export const initialState = {
@@ -14,17 +15,8 @@ export const fetchRecommandUsers = createAsyncThunk(
   'recommandUsers/fetchRecommandUsers', //name of your slice plus the name of thunk creator
   async (id: string) => {
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/user/${id}/recommand_users`,
-        {
-          method: 'get',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const data = await response.json();
-      return data;
+      const response = await getRecommandUsersReq(id);
+      return response.data;
     } catch (error) {
       throw Error(`${error}`);
     }
