@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import PostCard from './postCard';
@@ -11,18 +10,16 @@ interface Props {
 }
 
 export default function Feed({ posts, isCurrentUser, isHome }: Props) {
-  const postsLoading = useSelector((state) => state.userPosts.loading);
+  //const postsLoading = useSelector((state) => state.userPosts.loading);
 
   return (
     <>
       <FeedContainer isHome={isHome}>
         {isCurrentUser ? <ShareCard /> : null}
 
-        {postsLoading ? (
-          <div>Loading</div>
-        ) : (
-          posts.map((post, i) => <PostCard key={i} post={post} />)
-        )}
+        {posts.map((post, i) => (
+          <PostCard key={i} post={post} />
+        ))}
       </FeedContainer>
     </>
   );

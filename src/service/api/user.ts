@@ -4,6 +4,10 @@ export const getUserReq = (id: string) => {
   return axiosClient.get(`/user?userId=${id}`);
 };
 
+export const editProfileReq = (data) => {
+  return axiosClient.put(`user/edit_profile`, data);
+};
+
 export const getFollowingUsersReq = () => {
   return axiosClient.get('user/60ed4aa170b49b2b843f43d6/followings');
 };

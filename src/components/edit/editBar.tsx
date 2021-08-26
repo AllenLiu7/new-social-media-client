@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { currentUserSelector, updateUser } from '../../redux/slice/loginUser';
+import { uploadProfilePicReq } from '../../service/api/upload';
+import { editProfileReq } from '../../service/api/user';
 import { Card } from '../common/styled-components/card';
 const PF = process.env.PROFILE_PIC;
 
@@ -45,11 +47,7 @@ export default function EditBar() {
       formData.append('profile-pic', file);
       formData.append('currentProfilePic', currentUser.profilePicture);
       try {
-        const response = await axios.post(
-          'http://localhost:8000/api/upload/profile_pic',
-          formData
-        );
-        console.log(response.data);
+        const response = await uploadProfilePicReq(formData);
         newData.profile.profilePicture = response.data.fileName;
       } catch (err) {
         console.log(err);
@@ -57,11 +55,7 @@ export default function EditBar() {
     }
     //execute axios with the formData
     try {
-      const response = await axios.put(
-        'http://localhost:8000/api/user/edit_profile',
-        newData
-      );
-      console.log(response.data);
+      const response = await editProfileReq(newData);
       dispatch(updateUser(response.data));
     } catch (err) {
       console.log(err);
