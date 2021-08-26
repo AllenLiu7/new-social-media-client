@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -12,11 +13,40 @@ import RightBar from '../rightbar';
 
 export default function ProfileBar() {
   const [isEdit, setEdit] = useState<boolean | null>(false);
+  const [isFollowed, setIsFollowed] = useState<boolean | null>(null);
+  const [posts, setPosts] = useState([]);
   const { currentUser } = useSelector(currentUserSelector);
-  const { user, isCurrentUser, paramId } = useDefineUser(currentUser);
+  const { user, isCurrentUser, paramId } = useDefineUser(currentUser); //define the user for the profile page.
   const timelinePosts = useSelector(timelinePostsSelector);
 
-  const posts = timelinePosts.filter((post) => post.userId === paramId); //paramUserId can be currentUserId or others' id
+  //check if the user is followed.
+  useEffect(() => {
+    if (
+      currentUser._id === paramId ||
+      currentUser.followings.includes(paramId)
+    ) {
+      return setIsFollowed(true);
+    }
+    return setIsFollowed(false);
+  }, [currentUser, paramId]);
+
+  useEffect(() => {
+    if (isFollowed) {
+      return setPosts(timelinePosts.filter((post) => post.userId === paramId));
+    }
+    const fetchUnfollowPosts = async (id) => {
+      const response = await axios.get(
+        `http://localhost:8000/api/post/profile/${id}`
+      );
+
+      return setPosts(
+        response.data.sort((p1, p2) => {
+          new Date(p2.createdAt) - new Date(p1.createdAt);
+        })
+      );
+    };
+    fetchUnfollowPosts(paramId);
+  }, [isFollowed, timelinePosts, paramId]);
 
   const handleEditButton = () => {
     setEdit(!isEdit);
