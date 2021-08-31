@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { currentUserSelector, logoutUser } from '../../redux/slice/loginUser';
+import { logOutReq } from '../../service/api/auth';
 import { StyledProfilePic } from '../common/styled-components/styledProfilePic';
 import SearchBar from './searchBar';
 import TopBarIcon from './topBarIcons';
@@ -14,9 +15,14 @@ export default function TopBar() {
   const history = useHistory();
   const { currentUser } = useSelector(currentUserSelector);
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
-    history.push('/');
+  const handleLogout = async () => {
+    try {
+      await logOutReq();
+      dispatch(logoutUser());
+      history.push('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>
