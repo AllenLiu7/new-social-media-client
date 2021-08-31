@@ -8,6 +8,7 @@ export const initialState = {
   isError: false,
   errorMessage: '',
   currentUser: null,
+  token: null,
 };
 
 export const loginUserThunk = createAsyncThunk(
@@ -47,9 +48,13 @@ const { reducer, actions } = createSlice({
     },
     logoutUser(state) {
       state.currentUser = null;
+      state.token = null;
     },
     updateUser(state, { payload }) {
       state.currentUser = payload;
+    },
+    updateToken(state, { payload }) {
+      state.token = payload.token;
     },
     follow(state, { payload }) {
       state.currentUser.followings.push(payload);
@@ -62,7 +67,8 @@ const { reducer, actions } = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loginUserThunk.fulfilled, (state, { payload }) => {
-      state.currentUser = payload;
+      state.currentUser = payload.currentUser;
+      state.token = payload.token;
       state.isLoading = false;
       state.isSuccess = true;
     });
@@ -95,7 +101,14 @@ const { reducer, actions } = createSlice({
 export default reducer;
 
 //action
-export const { clearState, logoutUser, follow, unfollow, updateUser } = actions;
+export const {
+  clearState,
+  logoutUser,
+  follow,
+  unfollow,
+  updateUser,
+  updateToken,
+} = actions;
 
 //selector
 export const currentUserSelector = (state) => state.currentUser;
