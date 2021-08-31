@@ -19,7 +19,9 @@ import {
   clearState,
   currentUserSelector,
   loginUserThunk,
+  updateToken,
 } from '../redux/slice/loginUser';
+import { refreshTokenReq } from '../service/api/auth';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -27,22 +29,34 @@ export default function Login() {
   const { control, handleSubmit } = useForm();
   const { isSuccess, isError, errorMessage, currentUser } =
     useSelector(currentUserSelector);
+
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(() => {
-    if (currentUser) {
-      history.push('/app');
+  const verifyUser = async () => {
+    try {
+      const response = await refreshTokenReq();
+
+      if (response.data.token) {
+        dispatch(updateToken(response.data));
+        history.push('/app');
+      }
+    } catch (err) {
+      console.log(err);
     }
+  };
+
+  useEffect(() => {
+    verifyUser();
+
     if (isError) {
       toast.error(errorMessage);
       dispatch(clearState());
     }
 
     if (isSuccess) {
-      history.push('/app');
       dispatch(clearState());
     }
-  }, [isError, isSuccess]);
+  }, [currentUser, isError, isSuccess]);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
