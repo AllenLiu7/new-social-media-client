@@ -20,6 +20,7 @@ export default function TopBar() {
       await logOutReq();
       dispatch(logoutUser());
       history.push('/');
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }

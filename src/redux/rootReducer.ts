@@ -7,6 +7,12 @@ import recommandUsersReducer from './slice/getRecommandUsers';
 import timelinePostsReducer from './slice/getTimelinePosts';
 import loginUserReducer from './slice/loginUser';
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['currentUser'],
+};
+
 const authPersistConfig = {
   key: 'auth',
   storage: storage,
@@ -22,10 +28,14 @@ const combinedReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === 'user/logoutUser') {
-    state = undefined;
+    // storage.removeItem('persist:root');
     storage.removeItem('persist:auth');
+    return combinedReducer(undefined, action);
+    //this setting will delete persist auth and set persist root to undefine.
+    //but if next user login will not get persist auth which means next user fail to persist the state
+    //for now, the best way to solve this problem is to refresh the page after logout, so that both auth and root will be reset to local storage
   }
   return combinedReducer(state, action);
 };
 
-export default rootReducer;
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
