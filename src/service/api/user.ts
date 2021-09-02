@@ -1,11 +1,13 @@
-import { axiosClient } from './index';
+import { axiosClient, axiosJWT } from './index';
 
 export const getUserReq = (id: string) => {
   return axiosClient.get(`/user?userId=${id}`);
 };
 
 export const editProfileReq = (data) => {
-  return axiosClient.put(`user/edit_profile`, data);
+  return axiosJWT.put(`user/edit_profile`, data, {
+    withCredentials: true,
+  });
 };
 
 export const getFollowingUsersReq = () => {
