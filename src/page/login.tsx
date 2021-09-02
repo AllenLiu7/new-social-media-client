@@ -22,41 +22,68 @@ import {
   updateToken,
 } from '../redux/slice/loginUser';
 import { refreshTokenReq } from '../service/api/auth';
+import { axiosJWT } from '../service/api/index';
 
 export default function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { control, handleSubmit } = useForm();
-  const { isSuccess, isError, errorMessage, currentUser } =
-    useSelector(currentUserSelector);
+  const { isSuccess, isError, errorMessage } = useSelector(currentUserSelector);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const verifyUser = async () => {
     try {
       const response = await refreshTokenReq();
+      const newToken = response.data.token;
 
-      if (response.data.token) {
+      if (newToken) {
         dispatch(updateToken(response.data));
+
+        axiosJWT.defaults.headers.common['authorization'] =
+          'Bearer ' + newToken;
+        console.log('header set');
+
         history.push('/app');
       }
     } catch (err) {
       console.log(err);
+      return false;
     }
   };
 
   useEffect(() => {
-    verifyUser();
-
     if (isError) {
-      toast.error(errorMessage);
       dispatch(clearState());
+      toast.error(errorMessage);
     }
 
     if (isSuccess) {
       dispatch(clearState());
+      //setup silent refresh and get AT after login
+      verifyUser();
+      return;
     }
-  }, [currentUser, isError, isSuccess]);
+
+    //for auth psistance(page refresh or tab close) using refresh token, and refresh both RT and AT
+    verifyUser();
+
+    setInterval(async () => {
+      try {
+        const response = await refreshTokenReq();
+        const newToken = response.data.token;
+        if (newToken) {
+          dispatch(updateToken(response.data));
+
+          axiosJWT.defaults.headers.common['authorization'] =
+            'Bearer ' + newToken;
+          console.log('header set');
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }, 15 * 1000 - 500);
+  }, [isSuccess, isError]);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);

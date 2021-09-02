@@ -172,7 +172,7 @@ export default function EditBar() {
             <Controller
               name='relation'
               control={control}
-              defaultValue={city || null}
+              defaultValue={0 || null}
               render={({
                 field: { onChange, value },
                 fieldState: { error },
@@ -202,7 +202,7 @@ export default function EditBar() {
               )}
             />
             <ProfilePicFormWrapper>
-              <Typography variant='h7' gutterBottom>
+              <Typography variant='h6' gutterBottom>
                 Profile Picture
               </Typography>
               <ProfilePicWrapper>

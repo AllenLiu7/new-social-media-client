@@ -1,3 +1,4 @@
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
@@ -10,7 +11,7 @@ const persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={<CircularProgress />} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>,
