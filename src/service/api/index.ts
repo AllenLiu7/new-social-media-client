@@ -8,6 +8,14 @@ export const axiosClient = axios.create({
   },
 });
 
+export const axiosJWT = axios.create({
+  baseURL: `http://localhost:8000/api`,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
+
 axiosClient.interceptors.response.use(
   function (response) {
     return response;
