@@ -19,6 +19,7 @@ import {
   clearState,
   currentUserSelector,
   loginUserThunk,
+  setIntervalId,
   updateToken,
 } from '../redux/slice/loginUser';
 import { refreshTokenReq } from '../service/api/auth';
@@ -42,7 +43,6 @@ export default function Login() {
 
         axiosJWT.defaults.headers.common['authorization'] =
           'Bearer ' + newToken;
-        console.log('header set');
 
         history.push('/app');
       }
@@ -54,35 +54,14 @@ export default function Login() {
 
   useEffect(() => {
     if (isError) {
-      dispatch(clearState());
       toast.error(errorMessage);
-    }
-
-    if (isSuccess) {
       dispatch(clearState());
-      //setup silent refresh and get AT after login
-      verifyUser();
       return;
     }
 
+    //get AT after login
     //for auth psistance(page refresh or tab close) using refresh token, and refresh both RT and AT
     verifyUser();
-
-    setInterval(async () => {
-      try {
-        const response = await refreshTokenReq();
-        const newToken = response.data.token;
-        if (newToken) {
-          dispatch(updateToken(response.data));
-
-          axiosJWT.defaults.headers.common['authorization'] =
-            'Bearer ' + newToken;
-          console.log('header set');
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }, 15 * 1000 - 500);
   }, [isSuccess, isError]);
 
   const handleClickShowPassword = () => {
